@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'url' => 'http://workflow.xyz/'
+    'url' => 'http://workflow.xyz/',
+    'titleApp' => 'Workflow'
 ];
