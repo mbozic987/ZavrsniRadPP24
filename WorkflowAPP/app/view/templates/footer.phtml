@@ -1,4 +1,13 @@
-<hr/>
-<div class="grid-container">
-    <?=App::config('titleApp')?> &copy; 2022
-</div>
+<hr <?php 
+if(App::config('dev')){
+    echo 'style="border: 5px solid red;"';
+}
+
+?> />
+<?php 
+
+if(App::config('dev')){
+    echo '<span style="color:blue">DEVELOPMENT</span> ';
+}
+
+echo App::config('titleApp')?> &copy; 2022

@@ -5,7 +5,6 @@ class App
     public static function start()
     {
         $route = Request::getRoute();
-        //echo $route;
 
         $part = explode('/',$route);
 
@@ -29,7 +28,10 @@ class App
             $instance = new $class();
             $instance->$method();
         }else{
-            echo $class . '->' . $method . '() does not exist!';
+            $view = new View();
+            $view->render('error404',[
+                'missingcontent' => $class . '->' . $method
+            ]);
         }
     }   
 
