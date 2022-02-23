@@ -4,23 +4,23 @@ class LoginController extends Controller
 {
     public function index()
     {
-        $this->loginView('Input your email and password','');
+        $this->loginView('Input your username and password','');
     }
 
     public function authorize()
     {
-        if(!isset($_POST['email']) || !isset($_POST['password'])){
+        if(!isset($_POST['username']) || !isset($_POST['password'])){
             $this->index();
             return;
         }
 
-        if(strlen(trim($_POST['email']))===0){
-            $this->loginView('You must enter your email','');
+        if(strlen(trim($_POST['username']))===0){
+            $this->loginView('You must enter your username','');
             return;
         }
 
         if(strlen(trim($_POST['password']))===0){
-            $this->loginView('You must enter your password',$_POST['email']);
+            $this->loginView('You must enter your password',$_POST['username']);
             return;
         }
 
@@ -31,7 +31,7 @@ class LoginController extends Controller
     {
         $this->view->render('login',[
             'message' => $message,
-            'email' => $email
+            'username' => $username
         ]);
     }
 }

@@ -1,5 +1,7 @@
+# c:\xampp\mysql\bin\mysql -uedunova -pedunova --default_character_set=utf8 < D:\PP24\ZavrsniRadPP24\WorkflowApp\workflow.sql
+
 drop database if exists workflow;
-create database workflow character set utf8;
+create database workflow character set utf8mb4;
 use workflow;
 
 create table client(
@@ -16,7 +18,10 @@ create table employee(
     firstname               varchar(50) not null,
     lastname                varchar(50) not null,
     phonenum                varchar(20) not null,
-    email                   varchar(50) not null
+    email                   varchar(50) not null,
+    username                varchar(50) not null,
+    userpassword            char(60) not null,
+    job                     varchar(10) not null
 );
 
 create table workorder(
@@ -26,7 +31,7 @@ create table workorder(
     workstation             int,
     device                  int not null,
     malfunction             varchar(200) not null,
-    receive_date            datetime,
+    receive_date            datetime not null default now(),
     repair_status           int not null,
     work_done               varchar(200) not null,
     repair_date             datetime
@@ -64,10 +69,13 @@ insert into client (client_id,firstname,lastname,company,phonenum,email) values
 (null,'Drazen','Dragičević',null,'0973571596','draza@gmail.com'),
 (null,'Goran','Glavurdić','Gepeto, stolarski obrt','092654256',null);
 
-insert into employee (employee_id,firstname,lastname,phonenum,email) values
-(null,'Božidar','Mašić','0992587412','bozo@gmail.com'),
-(null,'Robert','Dudaš','0955524563','robinjo@gmail.com'),
-(null,'Mladen','Božić','0977897819','mladjahni@gmail.com');
+insert into employee (employee_id,firstname,lastname,phonenum,email,username,userpassword,job) values
+# userpassword a
+(null,'Božidar','Mašić','0992587412','bozo@gmail.com','bmasic','$2a$12$lBl3DQVaDw2zHkH9ht.64uEQ.TAqh18PLk/NKexRyEfpBeT/TMsbi','admin'),
+# userpassword s1
+(null,'Robert','Dudaš','0955524563','robinjo@gmail.com','rdudas','$2a$12$LZWiYT1ZrFtQJdf0YwqqxOW/wmNzHhD4N.crhTW7VIRzKiWrTv9Qq','repairman'),
+# userpassword s2
+(null,'Mladen','Božić','0977897819','mladjahni@gmail.com','mbozic','$2a$12$40ZLRJu6GrCgwqOZugAIauxK8CQphU6ZAUaYjB7qDSSm8AM.32I/G','repairman');
 
 insert into device(device_id,client,manufacturer,model,serialnum) values
 (null,1,'Bosch','GSH 5 40',null),
