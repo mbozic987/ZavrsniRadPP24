@@ -1,0 +1,20 @@
+<form class="log-in-form"
+action="<?=App::config('url')?>login/authorize"
+method="POST">
+  <h4 class="text-center">Authorization</h4>
+  <label>Email
+    <input type="email" name="email" placeholder="gandalf@minastirith.com"
+    value="<?=$email?>" />
+  </label>
+  <label>Password
+    <input type="password" name="password" />
+  </label>
+  <p>
+    <input type="submit" class="button expanded" value="Login" />
+  </p>
+  <ul>
+      <li><?=$message?></li>
+  </ul> 
+</form>
+
+
