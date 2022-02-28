@@ -3,7 +3,13 @@
 return [
     'dev' => true,
     'url' => 'http://workflow.xyz/',
-    'titleApp' => 'Workflow'
+    'titleApp' => 'Workflow',
+    'db' => [
+        'server' => 'localhost',
+        'db' => 'workflow',
+        'user' => 'edunova',
+        'password' => 'edunova'
+    ]
 ];
 
 /*

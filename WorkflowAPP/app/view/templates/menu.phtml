@@ -25,7 +25,13 @@
         </div>
         <div class="top-bar-right">
             <ul class="menu">
-            <li><a href="<?=App::config('url')?>login/index">Login</a></li>
+            <li>
+                <?php if(App::authorized()):?>
+                <a href="<?=App::config('url')?>login/logout">Logout</a>
+                <?php else:?>
+                <a href="<?=App::config('url')?>login/index">Login</a>
+                <?php endif;?>
+            </li>
             </ul>
         </div>
     </div>
