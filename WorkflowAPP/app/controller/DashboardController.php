@@ -1,6 +1,6 @@
 <?php
 
-class DashboardController extends Controller 
+class DashboardController extends AuthorizationController 
 {
     private $viewDir = 'private' . DIRECTORY_SEPARATOR;
 
