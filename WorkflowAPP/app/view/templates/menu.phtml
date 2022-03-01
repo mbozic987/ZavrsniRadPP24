@@ -11,23 +11,25 @@
             <ul class="dropdown menu" data-dropdown-menu>
             <li class="menu-text"><?=App::config('titleApp')?></li>
             <li><a href="<?=App::config('url')?>">Home</a></li>
-            <li class="has-submenu">
-                <a href="#0">One</a>
-                <ul class="submenu menu vertical" data-submenu>
-                <li><a href="#0">One</a></li>
-                <li><a href="#0">Two</a></li>
-                <li><a href="#0">Three</a></li>
-                </ul>
-            </li>
-            <li><a href="#0">Two</a></li>
-            <li><a href="#0">Three</a></li>
+            <?php if(App::authorized()):?>
+                <li><a href="<?=App::config('url')?>dashboard/index">Dashboard</a></li>
+                <li class="has-submenu">
+                    <a href="#">Data Sheets</a>
+                    <ul class="submenu menu vertical" data-submenu>
+                    <li><a href="<?=App::config('url')?>workorder/index">Workorders</a></li>
+                    <li><a href="<?=App::config('url')?>client/index">Clients</a></li>
+                    <li><a href="<?=App::config('url')?>device/index">Devices</a></li>
+                    <li><a href="<?=App::config('url')?>employee/index">Employees</a></li>
+                    </ul>
+                </li>
+            <?php endif;?>
             </ul>
         </div>
         <div class="top-bar-right">
             <ul class="menu">
             <li>
                 <?php if(App::authorized()):?>
-                <a href="<?=App::config('url')?>login/logout">Logout</a>
+                <a href="<?=App::config('url')?>login/logout">Logout <?php echo $_SESSION['authorized']->firstname ?></a>
                 <?php else:?>
                 <a href="<?=App::config('url')?>login/index">Login</a>
                 <?php endif;?>
