@@ -1,20 +1,28 @@
 <?php
 
-return [
-    'dev' => true,
-    'url' => 'http://workflow.xyz/',
-    'titleApp' => 'Workflow',
-    'db' => [
+if($_SERVER['SERVER_ADDR']==='127.0.0.1'){
+    $url = 'http://workflow.xyz/';
+    $dev = true;
+    $db = [
         'server' => 'localhost',
         'db' => 'workflow',
         'user' => 'edunova',
         'password' => 'edunova'
-    ]
-];
+    ];
+}else{
+    $url = 'https://polaznik23.edunova.hr/';
+    $dev = false;
+    $db = [
+        'server' => 'localhost',
+        'db' => 'harpije_workflow',
+        'user' => 'harpije_polaznik23',
+        'password' => 'z[{gZJ!#i-]s'
+    ];
+}
 
-/*
 return [
-    'dev'=>false,
-    'url'=>'https://polaznik23.edunova.hr/',
-    'titleApp'=>'Workflow'
-];*/
+    'dev' => $dev,
+    'url' => $url,
+    'titleApp' => 'Workflow',
+    'db' => $db
+];
