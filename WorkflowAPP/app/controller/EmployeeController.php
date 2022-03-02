@@ -7,6 +7,8 @@ class EmployeeController extends AuthorizationController
 
     public function index()
     {
-        $this->view->render($this->viewDir . 'index');
+        $this->view->render($this->viewDir . 'index',[
+            'employee' => Employee::read()
+        ]);
     }
 }

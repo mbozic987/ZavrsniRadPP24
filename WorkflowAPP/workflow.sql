@@ -85,4 +85,4 @@ insert into device(device_id,client,manufacturer,model,serialnum) values
 insert into workorder(workorder_id,employee_frontdesk,employee_repairman,workstation,device,malfunction,receive_date,repair_status,work_done,repair_date) values
 (null,1,2,1,1,'Gubi kontakt','2021-11-10',3,'Obavljena dijagnostika, prekidač nagoren',null),
 (null,1,2,2,2,'Čudno se čuje','2021-11-10',4,'Obavljena dijagnostika, oštećeni zupčanici, ugrađeni novi zupčanici','2021-11-10'),
-(null,1,1,1,3,'','2021-11-10',2,'',null);
+(null,1,3,1,3,'','2021-11-10',2,'',null);

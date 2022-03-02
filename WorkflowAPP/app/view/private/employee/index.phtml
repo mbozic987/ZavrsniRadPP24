@@ -1,1 +1,51 @@
-<h3>Employees</h3>
+<div class="grid-x">
+    <div class="large-6 cell">
+        <h1 style="font-size: 2rem">Employees</h1>
+    </div>
+    <div class="large-6 cell" style="text-align: right">
+        <a href="<?=App::config('url')?>employee/new">
+            <i title="Add employee" class="fas fa-2x fa-user-plus"></i>
+        </a>
+    </div>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Phonenumber</th>
+            <th>E-mail</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($employee as $e): ?>
+            <tr>
+                <td><?=$e->firstname?></td>
+                <td><?=$e->lastname?></td>
+                <td><?=$e->phonenum?></td>
+                <td><?=$e->email?></td>
+                <td><?=$e->userpassword?></td>
+                <td><?=$e->employee_role?></td>
+                <td>
+                    <a href="<?=App::config('url')?>employee/edit/<?=$employee->employee_id?>">
+                        <i title="Edit" class="fas fa-2x fa-pen-square"></i>
+                    </a>
+                    <?php if ($employee->workorder==0): ?>
+                        <a href="<?=App::config('url')?>employee/delete/<?=$employee->employee_id?>">
+                            <i style="color:red" title="Can not be deleted" class="fas fa-2x fa-minus-square"></i>
+                        </a>
+                    <?php else: ?>
+                        <a href="<?=App::config('url')?>employee/delete/<?=$employee->employee_id?>">
+                            <i style="color:grey" title="Delete" class="fas fa-2x fa-minus-square"></i>
+                        </a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>
+
+<pre><?=print_r($employee)?></pre>
