@@ -15,7 +15,6 @@
             <th>Lastname</th>
             <th>Phonenumber</th>
             <th>E-mail</th>
-            <th>Password</th>
             <th>Role</th>
             <th>Action</th>
         </tr>
@@ -27,25 +26,20 @@
                 <td><?=$e->lastname?></td>
                 <td><?=$e->phonenum?></td>
                 <td><?=$e->email?></td>
-                <td><?=$e->userpassword?></td>
                 <td><?=$e->employee_role?></td>
                 <td>
-                    <a href="<?=App::config('url')?>employee/edit/<?=$employee->employee_id?>">
+                    <a href="<?=App::config('url')?>employee/edit/<?=$e->employee_id?>">
                         <i title="Edit" class="fas fa-2x fa-pen-square"></i>
                     </a>
-                    <?php if ($employee->workorder==0): ?>
-                        <a href="<?=App::config('url')?>employee/delete/<?=$employee->employee_id?>">
-                            <i style="color:red" title="Can not be deleted" class="fas fa-2x fa-minus-square"></i>
+                    <?php if ($e->workorder==0): ?>
+                        <a href="<?=App::config('url')?>employee/delete/<?=$e->employee_id?>">
+                            <i style="color:red" title="Delete" class="fas fa-2x fa-minus-square"></i>
                         </a>
                     <?php else: ?>
-                        <a href="<?=App::config('url')?>employee/delete/<?=$employee->employee_id?>">
-                            <i style="color:grey" title="Delete" class="fas fa-2x fa-minus-square"></i>
-                        </a>
+                            <i style="color:grey" title="Can not be deleted" class="fas fa-2x fa-minus-square"></i>
                     <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach;?>
     </tbody>
 </table>
-
-<pre><?=print_r($employee)?></pre>
