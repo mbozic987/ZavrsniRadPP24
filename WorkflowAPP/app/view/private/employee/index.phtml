@@ -8,7 +8,7 @@
         </a>
     </div>
 </div>
-<table>
+<table id="tabletemp">
     <thead>
         <tr>
             <th>Firstname</th>
@@ -29,14 +29,14 @@
                 <td><?=$e->employee_role?></td>
                 <td>
                     <a href="<?=App::config('url')?>employee/edit/<?=$e->employee_id?>">
-                        <i title="Edit" class="fas fa-2x fa-pen-square"></i>
+                        <i title="Edit &quot;<?=$e->firstname?> <?=$e->lastname?>&quot;" class="fas fa-2x fa-pen-square"></i>
                     </a>
                     <?php if ($e->workorder==0): ?>
                         <a href="<?=App::config('url')?>employee/delete/<?=$e->employee_id?>">
-                            <i style="color:red" title="Delete" class="fas fa-2x fa-minus-square"></i>
+                            <i style="color:red; margin-left:20px" title="Delete" class="fas fa-2x fa-minus-square"></i>
                         </a>
                     <?php else: ?>
-                            <i style="color:grey" title="Can not be deleted" class="fas fa-2x fa-minus-square"></i>
+                            <i style="color:grey; margin-left:20px" title="&quot;<?=$e->firstname?> <?=$e->lastname?>&quot; can not be deleted" class="fas fa-2x fa-minus-square"></i>
                     <?php endif; ?>
                 </td>
             </tr>

@@ -6,13 +6,12 @@
 }
 
 #program{
-    min-height: 750px;
+    min-height: 700px;
 }
 
 hr{
     max-width: 100%;
 }
-
 
 .log-in-form {
     border: 1px solid #cacaca;
@@ -22,4 +21,36 @@ hr{
     margin: auto;
   }
   
-  
+  #tabletemp {
+    text-align: center;
+  }
+
+  table#tabletemp th{
+    text-align: center;
+  }
+
+  table tr:nth-of-type(odd) {
+    background: #d9d7db;
+    }
+
+  .top-bar, .top-bar ul {
+    background-color: black;
+    color: white;
+  }
+  body{
+    background: #d9d7db;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .callout {
+    background: #d9d7db;
+  }
+
+  footer{
+    min-height: 40px;
+    margin-top: auto;
+    background-color: black;
+    color: white;
+  }

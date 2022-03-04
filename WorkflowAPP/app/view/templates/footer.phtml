@@ -1,13 +1,10 @@
-<hr <?php 
-if(App::config('dev')){
-    echo 'style="border: 5px solid red;"';
-}
+<footer>
+    <?php 
 
-?> />
-<?php 
+    if(App::config('dev')){
+        echo '<span style="color:blue">DEVELOPMENT</span> ';
+    }
 
-if(App::config('dev')){
-    echo '<span style="color:blue">DEVELOPMENT</span> ';
-}
+    echo App::config('titleApp')?> &copy; 2022
 
-echo App::config('titleApp')?> &copy; 2022
+</footer>
