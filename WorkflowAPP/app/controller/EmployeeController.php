@@ -11,4 +11,10 @@ class EmployeeController extends AuthorizationController
             'employee' => Employee::read()
         ]);
     }
+
+    public function delete($employee_id)
+    {
+        Employee::delete($employee_id);
+        $this->index();
+    }
 }

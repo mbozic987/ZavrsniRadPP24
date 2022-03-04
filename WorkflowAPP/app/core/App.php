@@ -24,9 +24,21 @@ class App
             $method = $part[2];
         }
 
+        $parameter=null;
+        if(!isset($part[3]) || $part[3]===''){
+            $parameter = null;
+        }else{
+            $parameter = $part[3];
+        }
+
         if(class_exists($class) && method_exists($class,$method)){
             $instance = new $class();
-            $instance->$method();
+            if($parameter==null){
+                $instance->$method();
+            }else{
+                $instance->$method($parameter);
+            }
+            
         }else{
             $view = new View();
             $view->render('error404',[

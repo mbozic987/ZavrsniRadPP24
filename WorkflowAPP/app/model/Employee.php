@@ -29,4 +29,14 @@ class Employee
     //U - Update
 
     //D - Delete
+    public static function delete($employee_id)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+
+        delete from employee where employee_id=:employee_id;
+
+        ');
+        $exp->execute(['employee_id'=>$employee_id]);
+    }
 }
