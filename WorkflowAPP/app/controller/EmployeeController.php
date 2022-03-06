@@ -12,6 +12,11 @@ class EmployeeController extends AuthorizationController
         ]);
     }
 
+    public function new()
+    {
+        $this->view->render($this->viewDir . 'new');
+    }
+
     public function delete($employee_id)
     {
         Employee::delete($employee_id);
