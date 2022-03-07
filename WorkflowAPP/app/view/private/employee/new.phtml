@@ -1,0 +1,22 @@
+<form action="<?=App::config('url')?>employee/new" method="post">
+    <label for="fistname">Firstname</label>
+    <input type="text" name="firstname" id="firstname">
+    <label for="lastname">Lastname</label>
+    <input type="text" name="lastname" id="lastname">
+    <label for="phonenum">Phone number</label>
+    <input type="tel" name="phonenum" id="phonenum">
+    <label for="email">E-mail</label>
+    <input type="email" name="email" id="email">
+    <label for="userpasword">Password</label>
+    <input type="password" name="userpasword" id="userpassword">
+    <label for="userpasword">Repeat password</label>
+    <input type="password" name="userpassword" id="userpassword">
+    <p>Role</p>
+    <input type="radio" name="employee_role" id="admin" value="admin">
+    <label for="admin">Admin</label>
+    <br/>
+    <input type="radio" name="employee_role" id="repairman" value="repairman">
+    <label for="repairman">Repairman</label>
+    <hr/>
+    <input type="submit" class="button" value="Add new employee  >>>">
+</form>
