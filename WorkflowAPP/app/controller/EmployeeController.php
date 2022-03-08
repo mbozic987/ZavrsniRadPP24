@@ -17,6 +17,15 @@ class EmployeeController extends AuthorizationController
         $this->view->render($this->viewDir . 'new');
     }
 
+    public function addNew()
+    {
+        //controls
+        unset($_POST['passwordcheck']);
+        Employee::create($_POST);
+        $this->index();
+
+    }
+
     public function delete($employee_id)
     {
         Employee::delete($employee_id);

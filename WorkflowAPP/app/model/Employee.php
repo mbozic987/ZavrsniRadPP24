@@ -1,6 +1,6 @@
 <?php
 
-class Employee 
+class Employee
 {
     //CRUD
 
@@ -15,7 +15,8 @@ class Employee
         from employee a left join workorder b 
         on a.employee_id = b.employee_repairman or a.employee_id = b.employee_frontdesk 
         group by a.employee_id, a.firstname, a.lastname, a.phonenum, a.email,
-        a.userpassword, a.employee_role;
+        a.userpassword, a.employee_role
+        order by 7 asc, 3;
 
         ');
         $exp->execute();
@@ -23,7 +24,17 @@ class Employee
     }
 
     //C - Create
+    public static function create($parameters)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
 
+        insert into employee (firstname,lastname,phonenum,email,userpassword,employee_role)
+        values (:firstname,:lastname,:phonenum,:email,:userpassword,:employee_role);
+
+        ');
+        $exp->execute($parameters);
+    }
     
 
     //U - Update

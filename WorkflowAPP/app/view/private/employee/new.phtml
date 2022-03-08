@@ -1,22 +1,44 @@
-<form action="<?=App::config('url')?>employee/new" method="post">
-    <label for="fistname">Firstname</label>
-    <input type="text" name="firstname" id="firstname">
-    <label for="lastname">Lastname</label>
-    <input type="text" name="lastname" id="lastname">
-    <label for="phonenum">Phone number</label>
-    <input type="tel" name="phonenum" id="phonenum">
-    <label for="email">E-mail</label>
-    <input type="email" name="email" id="email">
-    <label for="userpasword">Password</label>
-    <input type="password" name="userpasword" id="userpassword">
-    <label for="userpasword">Repeat password</label>
-    <input type="password" name="userpassword" id="userpassword">
-    <p>Role</p>
-    <input type="radio" name="employee_role" id="admin" value="admin">
-    <label for="admin">Admin</label>
-    <br/>
-    <input type="radio" name="employee_role" id="repairman" value="repairman">
-    <label for="repairman">Repairman</label>
-    <hr/>
-    <input type="submit" class="button" value="Add new employee  >>>">
-</form>
+
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="large-3 medium-2 cell"></div>
+        <div class="large-6 medium-8 cell">
+            <form action="<?=App::config('url')?>employee/addNew" method="post">
+                <fieldset>
+                    <legend>
+                        <h4>Add new employee</h4>
+                    </legend>
+
+                    <label for="fistname">Firstname</label>
+                    <input type="text" name="firstname" id="firstname">
+                    <label for="lastname">Lastname</label>
+                    <input type="text" name="lastname" id="lastname">
+                    <label for="phonenum">Phone number</label>
+                    <input type="tel" name="phonenum" id="phonenum">
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" id="email">
+                    <label for="userpassword">Password</label>
+                    <input type="password" name="userpassword" id="userpassword">
+                    <label for="passwordcheck">Repeat password</label>
+                    <input type="password" name="passwordcheck" id="passwordcheck">
+                    <p>Role</p>
+                    <input type="radio" name="employee_role" id="admin" value="admin">
+                    <label for="admin">Admin</label>
+                    <br/>
+                    <input type="radio" name="employee_role" id="repairman" checked="checked" value="repairman">
+                    <label for="repairman">Repairman</label>
+                    <hr/>
+                    <div class="grid-x grid-padding-x">
+                        <div class="large-4 medium-4 small-4">
+                            <a class="alert button expanded" href="<?=App::config('url')?>employee/index"><<<   Abort</a>
+                        </div>
+                        <div class="large-8 medium-8 small-8">
+                            <input type="submit" class="button expanded" value="Add new employee  >>>">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="large-3 medium-2 cell"></div>
+    </div>
+</div>
