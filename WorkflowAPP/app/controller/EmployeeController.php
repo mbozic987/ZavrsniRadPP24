@@ -76,7 +76,7 @@ class EmployeeController extends AuthorizationController
             Employee::update($_POST);
             $this->index();
         }else{
-            $this->view->render($this->viewDir . 'update',[
+            $this->view->render($this->viewDir . 'edit',[
                 'message'=>$this->message,
                 'employee'=>$this->employee
             ]);
@@ -152,6 +152,7 @@ class EmployeeController extends AuthorizationController
             return false;
         }
         unset($_POST['passwordcheck']);
+        unset($this->employee->passwordcheck);
         $_POST['userpassword']=password_hash($this->employee->userpassword,PASSWORD_BCRYPT);
         return true;
     }
