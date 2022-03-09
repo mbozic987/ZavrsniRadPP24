@@ -19,7 +19,7 @@ create table employee(
     lastname                varchar(50) not null,
     phonenum                varchar(20) not null,
     email                   varchar(50) not null,
-    userpassword            char(60) not null,
+    userpassword            varchar(60) not null,
     employee_role           varchar(10) not null
 );
 
@@ -29,10 +29,10 @@ create table workorder(
     employee_repairman      int,
     workstation             int,
     device                  int not null,
-    malfunction             varchar(200) not null,
+    malfunction             varchar(255) not null,
     receive_date            datetime not null default now(),
     repair_status           int not null,
-    work_done               varchar(200) not null,
+    work_done               varchar(255) not null,
     repair_date             datetime
 );
 

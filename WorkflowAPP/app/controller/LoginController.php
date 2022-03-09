@@ -4,7 +4,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        $this->loginView('Input your email and password','');
+        $this->loginView('','');
     }
 
     public function authorize()

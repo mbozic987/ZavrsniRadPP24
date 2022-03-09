@@ -9,23 +9,25 @@
                         <h4>Add new employee</h4>
                     </legend>
 
-                    <label for="fistname">Firstname</label>
-                    <input type="text" name="firstname" id="firstname">
-                    <label for="lastname">Lastname</label>
-                    <input type="text" name="lastname" id="lastname">
+                    <label for="fistname">First name</label>
+                        <input type="text" name="firstname" id="firstname" value="<?=$employee->firstname?>">
+                    <label for="lastname">Last name</label>
+                            <input type="text" name="lastname" id="lastname" value="<?=$employee->lastname?>">
                     <label for="phonenum">Phone number</label>
-                    <input type="tel" name="phonenum" id="phonenum">
+                        <input type="text" name="phonenum" id="phonenum" value="<?=$employee->phonenum?>">
                     <label for="email">E-mail</label>
-                    <input type="email" name="email" id="email">
+                        <input type="email" name="email" id="email" value="<?=$employee->email?>">
                     <label for="userpassword">Password</label>
-                    <input type="password" name="userpassword" id="userpassword">
-                    <label for="passwordcheck">Repeat password</label>
-                    <input type="password" name="passwordcheck" id="passwordcheck">
+                        <input type="password" name="userpassword" id="userpassword">
+                    <label for="passwordcheck">Re-write password</label>
+                        <input type="password" name="passwordcheck" id="passwordcheck">
                     <p>Role</p>
-                    <input type="radio" name="employee_role" id="admin" value="admin">
+                    <input type="radio" name="employee_role" id="admin" 
+                    <?php if($employee->employee_role='Admin') echo 'checked="checked"'; ?> value="Admin">
                     <label for="admin">Admin</label>
                     <br/>
-                    <input type="radio" name="employee_role" id="repairman" checked="checked" value="repairman">
+                    <input type="radio" name="employee_role" id="repairman" 
+                    <?php if($employee->employee_role='Repairman') echo 'checked="checked"'; ?> value="Repairman">
                     <label for="repairman">Repairman</label>
                     <hr/>
                     <div class="grid-x grid-padding-x">
@@ -36,6 +38,8 @@
                             <input type="submit" class="button expanded" value="Add new employee  >>>">
                         </div>
                     </div>
+                    <hr/>
+                    <p style="color: red"><?=$message?></p>
                 </fieldset>
             </form>
         </div>
