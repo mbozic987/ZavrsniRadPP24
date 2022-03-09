@@ -118,8 +118,8 @@ class EmployeeController extends AuthorizationController
             $this->message='Your passwords do not match!';
             return false;
         }
-        unset($this->employee->passwordcheck);
-        $this->employee->userpassword=password_hash($this->employee->userpassword,PASSWORD_BCRYPT);
+        unset($_POST['passwordcheck']);
+        $_POST['userpassword']=password_hash($this->employee->userpassword,PASSWORD_BCRYPT);
         return true;
     }
 
