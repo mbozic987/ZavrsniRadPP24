@@ -38,7 +38,7 @@ class EmployeeController extends AuthorizationController
 
     public function addNew()
     {
-        $this->employee=(object)$_POST;
+        $this->prepareData();
 
         if($this->firstnameControll()
         && $this->lastnameControll()
@@ -53,6 +53,39 @@ class EmployeeController extends AuthorizationController
                 'employee'=>$this->employee
             ]);
         }
+    }
+
+    public function edit($employee_id)
+    {
+        $this->employee = Employee::readOne($employee_id);
+        $this->view->render($this->viewDir . 'edit',[
+            'message'=>'',
+            'employee'=>$this->employee
+        ]);
+    }
+
+    public function editOne()
+    {
+        $this->prepareData();
+
+        if($this->firstnameControll()
+        && $this->lastnameControll()
+        && $this->phonenumControll()
+        && $this->emailControll()
+        && $this->passwordControll()){
+            Employee::update($_POST);
+            $this->index();
+        }else{
+            $this->view->render($this->viewDir . 'update',[
+                'message'=>$this->message,
+                'employee'=>$this->employee
+            ]);
+        }
+    }
+
+    private function prepareData()
+    {
+        $this->employee=(object)$_POST;
     }
 
     private function firstnameControll()

@@ -23,6 +23,19 @@ class Employee
         return $exp->fetchAll();
     }
 
+    //RO - Read One
+    public static function readOne($employee_id)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+
+        select * from employee where employee_id=:employee_id;
+
+        ');
+        $exp->execute(['employee_id'=>$employee_id]);
+        return $exp->fetch();
+    }
+
     //C - Create
     public static function create($parameters)
     {
@@ -38,6 +51,23 @@ class Employee
     
 
     //U - Update
+    public static function update($parameters)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+
+        update employee set 
+        firstname=:firstname,
+        lastname=:lastname,
+        phonenum=:phonenum,
+        email=:email,
+        userpassword=:userpassword,
+        employee_role=:employee_role)
+        where employee_id=:employee_id
+
+        ');
+        $exp->execute($parameters);
+    }
 
     //D - Delete
     public static function delete($employee_id)
