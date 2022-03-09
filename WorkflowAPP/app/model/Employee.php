@@ -62,7 +62,7 @@ class Employee
         phonenum=:phonenum,
         email=:email,
         userpassword=:userpassword,
-        employee_role=:employee_role)
+        employee_role=:employee_role,
         where employee_id=:employee_id
 
         ');
