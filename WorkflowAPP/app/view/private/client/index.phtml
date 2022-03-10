@@ -1,1 +1,48 @@
-<h3>Clients</h3>
+<div class="grid-x">
+    <div class="large-6 cell">
+        <h1 style="font-size: 2rem">Clients</h1>
+    </div>
+    <div class="large-6 cell" style="text-align: right">
+        <a href="<?=App::config('url')?>client/action">
+            <i title="Add client" class="fas fa-2x fa-user-plus"></i>
+        </a>
+    </div>
+</div>
+<table id="tabletemp">
+    <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Company</th>
+            <th>Phonenumber</th>
+            <th>E-mail</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($client as $c): ?>
+            <tr>
+                <td><?=$c->firstname?></td>
+                <td><?=$c->lastname?></td>
+                <td><?=$c->company?></td>
+                <td><?=$c->phonenum?></td>
+                <td><?=$c->email?></td>
+                <td>
+                    <a href="<?=App::config('url')?>client/details/<?=$c->client_id?>">
+                        <i title="Edit &quot;<?=$c->firstname?> <?=$c->lastname?>&quot;" class="fas fa-2x fa-pen-square"></i>
+                    </a>
+                    <?php if ($c->device==0): ?>
+                        <a onclick="return confirm('Are you sure you want to delete &quot;<?=$c->firstname?> <?=$c->lastname?>&quot;')" 
+                        href="<?=App::config('url')?>client/delete/<?=$c->client_id?>">
+                            <i style="color:red; margin-left:20px" title="Delete &quot;<?=$c->firstname?> <?=$c->lastname?>&quot;"
+                             class="fas fa-2x fa-minus-square"></i>
+                        </a>
+                    <?php else: ?>
+                            <i style="color:grey; margin-left:20px" title="&quot;<?=$c->firstname?> <?=$c->lastname?>&quot; can not be deleted" 
+                            class="fas fa-2x fa-minus-square"></i>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>

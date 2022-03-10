@@ -1,0 +1,46 @@
+
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="large-3 medium-2 cell"></div>
+        <div class="large-6 medium-8 cell">
+            <form action="<?=App::config('url')?>client/action" method="post">
+                <fieldset>
+                    <legend>
+                        <h4>Client details</h4>
+                    </legend>
+
+                    <label for="fistname">First name</label>
+                        <input type="text" name="firstname" id="firstname" value="<?=$client->firstname?>">
+                    
+                    <label for="lastname">Last name</label>
+                            <input type="text" name="lastname" id="lastname" value="<?=$client->lastname?>">
+
+                    <label for="company">Company</label>
+                        <input type="text" name="company" id="company" value="<?=$client->company?>">
+
+                    <label for="phonenum">Phone number</label>
+                        <input type="text" name="phonenum" id="phonenum" value="<?=$client->phonenum?>">
+
+                    <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" value="<?=$client->email?>">
+
+                        <input type="hidden" name="client_id" value="<?=$client->client_id?>">
+
+                    <hr/>
+                    <div class="grid-x grid-padding-x">
+                        <div class="large-4 medium-4 small-4">
+                            <a class="alert button expanded" href="<?=App::config('url')?>client/index"><<<   Abort</a>
+                        </div>
+                        <div class="large-8 medium-8 small-8">
+                            <input type="submit" class="button expanded" value="<?=$action?>">
+                        </div>
+                    </div>
+                    <hr/>
+                    <p style="color: red"><?=$message?></p>
+                    <pre><?php print_r($client) ?></pre>
+                </fieldset>
+            </form>
+        </div>
+        <div class="large-3 medium-2 cell"></div>
+    </div>
+</div>

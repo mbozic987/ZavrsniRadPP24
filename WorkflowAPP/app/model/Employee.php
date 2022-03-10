@@ -57,13 +57,13 @@ class Employee
         $exp = $conn->prepare('
 
         update employee set 
-        firstname=:firstname,
-        lastname=:lastname,
-        phonenum=:phonenum,
-        email=:email,
-        userpassword=:userpassword,
-        employee_role=:employee_role,
-        where employee_id=:employee_id
+            firstname=:firstname,
+            lastname=:lastname,
+            phonenum=:phonenum,
+            email=:email,
+            userpassword=:userpassword,
+            employee_role=:employee_role
+        where employee_id=:employee_id;
 
         ');
         $exp->execute($parameters);
