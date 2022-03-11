@@ -2,7 +2,7 @@
 
 class ClientController extends AuthorizationController
 {
-    private$viewDir = 'private' . DIRECTORY_SEPARATOR . 
+    private $viewDir = 'private' . DIRECTORY_SEPARATOR . 
                         'client' . DIRECTORY_SEPARATOR;
 
     private $message;
@@ -46,6 +46,8 @@ class ClientController extends AuthorizationController
 
     public function action()
     {
+        $this->prepareData();
+
         if($_POST['client_id']==0){
             if($this->firstnameControll()
             && $this->lastnameControll()
@@ -53,10 +55,9 @@ class ClientController extends AuthorizationController
             && $this->phonenumControll()
             && $this->emailControll()){
                 Client::create($_POST);
-                $this->index();
             }else{
                 $this->view->render($this->viewDir . 'details',[
-                    'client'=>(object)$_POST,
+                    'client'=>$this->client,
                     'message'=>$this->message,
                     'action'=>'Add new client   >>>'
                 ]);
@@ -69,16 +70,16 @@ class ClientController extends AuthorizationController
             && $this->phonenumControll()
             && $this->emailControll()){
                 Client::update($_POST);
-                $this->index();
             }else{
                 $this->view->render($this->viewDir . 'details',[
-                    'client'=>(object)$_POST,
+                    'client'=>$this->client,
                     'message'=>$this->message,
                     'action'=>'Edit existing client   >>>'
                 ]);
                 return;
             }
         }
+        header('location:' . App::config('url') . 'client/index');
     }
 
     public function delete($client_id)
@@ -87,8 +88,12 @@ class ClientController extends AuthorizationController
         header('location:' . App::config('url') . 'client/index');
     }
 
+    private function prepareData()
+    {
+        $this->client=(object)$_POST;
+    }
 
-    //input controls
+    //input controlls
     private function firstnameControll()
     {
         if(strlen(trim($this->client->firstname))===0){
@@ -146,4 +151,3 @@ class ClientController extends AuthorizationController
         return true;
     }
 }
-
