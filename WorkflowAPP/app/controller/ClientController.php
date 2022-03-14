@@ -54,6 +54,7 @@ class ClientController extends AuthorizationController
             && $this->companyControll()
             && $this->phonenumControll()
             && $this->emailControll()){
+                unset($_POST['client_id']);
                 Client::create($_POST);
             }else{
                 $this->view->render($this->viewDir . 'details',[
