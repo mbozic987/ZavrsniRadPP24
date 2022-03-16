@@ -1,1 +1,35 @@
-<h3>Devices</h3>
+<div class="grid-x">
+    <div class="large-6 cell">
+        <h1 style="font-size: 2rem">Clients</h1>
+    </div>
+    <div class="large-6 cell" style="text-align: right">
+        <a href="<?=App::config('url')?>device/details">
+            <i title="Add device" class="fas fa-2x fa-folder-plus"></i>
+        </a>
+    </div>
+</div>
+<table class="table-expand" id="tabletemp">
+  <thead>
+    <tr class="table-expand-row">
+      <th>Date</th>
+      <th>Number of items</th>
+      <th>Amount</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr class="table-expand-row" data-open-details>
+      <td>August 15</td>
+      <td>2 items</td>
+      <td>$0.50</td>
+      <td>in progress</span></td>
+    </tr>
+
+    <tr class="table-expand-row-content">
+      <td class="table-expand-row-nested">Sadržaj</td>
+    </tr>
+   
+  </tbody>
+</table>
+
