@@ -1,6 +1,6 @@
 <div class="grid-x">
     <div class="large-6 cell">
-        <h1 style="font-size: 2rem">Clients</h1>
+        <h1 style="font-size: 2rem">Devices</h1>
     </div>
     <div class="large-6 cell" style="text-align: right">
         <a href="<?=App::config('url')?>device/details">
@@ -8,28 +8,46 @@
         </a>
     </div>
 </div>
+
+<pre>
+  <?php print_r($entity);?>
+</pre>
 <table class="table-expand" id="tabletemp">
   <thead>
     <tr class="table-expand-row">
-      <th>Date</th>
-      <th>Number of items</th>
-      <th>Amount</th>
-      <th>Status</th>
+      <th>Client</th>
+      <th>Manufacturer</th>
+      <th>Model</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
-
-    <tr class="table-expand-row" data-open-details>
-      <td>August 15</td>
-      <td>2 items</td>
-      <td>$0.50</td>
-      <td>in progress</span></td>
-    </tr>
-
-    <tr class="table-expand-row-content">
-      <td class="table-expand-row-nested">Sadržaj</td>
-    </tr>
-   
+    <?php foreach($entity as $e): ?>
+      <tr class="table-expand-row" data-open-details>
+        <td><?=$e->firstname?> <?=$e->lastname?> <?=$e->company?></td>
+        <td><?=$e->manufacturer?></td>
+        <td><?=$e->model?></td>
+        <td>
+          <a href="<?=App::config('url')?>device/details/<?=$e->device_id?>">
+            <i title="Edit &quot;<?=$e->manufacturer?> <?=$e->model?>&quot;" class="fas fa-2x fa-pen-square"></i>
+          </a>
+          <?php if ($e->workored==0): ?>
+          <a onclick="return confirm('Are you sure you want to delete &quot;<?=$e->manufacturer?> <?=$e->model?>&quot;')" 
+            href="<?=App::config('url')?>device/delete/<?=$e->device_id?>">
+            <i style="color:red; margin-left:20px" title="Delete &quot;<?=$e->manufacturer?> <?=$e->model?>&quot;"
+             class="fas fa-2x fa-minus-square"></i>
+          </a>
+          <?php else: ?>
+          <i style="color:grey; margin-left:20px" title="&quot;<?=$e->manufacturer?> <?=$e->model?>&quot; can not be deleted becouse it has a workored" 
+             class="fas fa-2x fa-minus-square"></i>
+          <?php endif; ?>
+        </td>
+      </tr>
+      <tr class="table-expand-row-content">
+        <td class="table-expand-row-nested">Phone number: <?=$e->phonenum?></td>
+        <td class="table-expand-row-nested">E_mail: <?=$e->email?></td>
+      </tr>
+    <?php endforeach;?>
   </tbody>
 </table>
 
