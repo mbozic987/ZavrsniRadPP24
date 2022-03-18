@@ -8,10 +8,6 @@
         </a>
     </div>
 </div>
-
-<pre>
-  <?php print_r($entity);?>
-</pre>
 <table class="table-expand" id="tabletemp">
   <thead>
     <tr class="table-expand-row">
@@ -31,7 +27,7 @@
           <a href="<?=App::config('url')?>device/details/<?=$e->device_id?>">
             <i title="Edit &quot;<?=$e->manufacturer?> <?=$e->model?>&quot;" class="fas fa-2x fa-pen-square"></i>
           </a>
-          <?php if ($e->workored==0): ?>
+          <?php if ($e->workorder==0): ?>
           <a onclick="return confirm('Are you sure you want to delete &quot;<?=$e->manufacturer?> <?=$e->model?>&quot;')" 
             href="<?=App::config('url')?>device/delete/<?=$e->device_id?>">
             <i style="color:red; margin-left:20px" title="Delete &quot;<?=$e->manufacturer?> <?=$e->model?>&quot;"

@@ -12,7 +12,7 @@ class Device
 
             select a.device_id, b.firstname, b.lastname, b.company, 
             b.phonenum, b.email, a.manufacturer, a.model, a.serialnum,
-            count (c.workorder_id) as workorder
+            count(c.workorder_id) as workorder
             from device a 
             inner join client b on a.client = b.client_id 
             left join workorder c on a.device_id = c.device
@@ -64,10 +64,10 @@ class Device
 
         $lastId = $conn -> lastInsertId();
 
-        $exp = $conn -> prepare(['
+        $exp = $conn -> prepare('
             insert into device (client, manufacturer, model, serialnum)
             values (:client, :manufacturer, :model, :serialnum);
-        ']);
+        ');
         $exp->execute([
             'client'=>$lastId,
             'manufacturer'=>$parameters['manufacturer'],
