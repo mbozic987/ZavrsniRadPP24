@@ -3,7 +3,7 @@
         <h1 style="font-size: 2rem">Employees</h1>
     </div>
     <div class="large-6 cell" style="text-align: right">
-        <a href="<?=App::config('url')?>employee/new">
+        <a href="<?=App::config('url')?>employee/details">
             <i title="Add employee" class="fas fa-2x fa-user-plus"></i>
         </a>
     </div>
@@ -28,7 +28,7 @@
                 <td><?=$e->email?></td>
                 <td><?=$e->employee_role?></td>
                 <td>
-                    <a href="<?=App::config('url')?>employee/edit/<?=$e->employee_id?>">
+                    <a href="<?=App::config('url')?>employee/details/<?=$e->employee_id?>">
                         <i title="Edit &quot;<?=$e->firstname?> <?=$e->lastname?>&quot;" class="fas fa-2x fa-pen-square"></i>
                     </a>
                     <?php if ($e->workorder==0): ?>

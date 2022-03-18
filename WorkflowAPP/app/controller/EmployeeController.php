@@ -12,6 +12,7 @@ class EmployeeController extends AuthorizationController
     {
         parent::__construct();
         $this->employee = new stdClass();
+        $this->employee->employee_id=0;
         $this->employee->firstname='';
         $this->employee->lastname='';
         $this->employee->phonenum='';
@@ -28,59 +29,62 @@ class EmployeeController extends AuthorizationController
         ]);
     }
 
-    public function new()
+    public function details($employee_id=0)
     {
-        $this->view->render($this->viewDir . 'new',[
-            'message'=>'',
-            'employee'=>$this->employee
-        ]);
-    }
-
-    public function addNew()
-    {
-        $this->prepareData();
-
-        if($this->firstnameControll()
-        && $this->lastnameControll()
-        && $this->phonenumControll()
-        && $this->emailControll()
-        && $this->passwordControll()){
-            Employee::create($_POST);
-            $this->index();
+        if($employee_id===0){
+            $this->view->render($this->viewDir . 'details',[
+                'employee'=>$this->employee,
+                'message'=>'',
+                'action'=>'Add new employee   >>>'
+            ]);
         }else{
-            $this->view->render($this->viewDir . 'new',[
-                'message'=>$this->message,
-                'employee'=>$this->employee
+            $this->view->render($this->viewDir . 'details',[
+                'employee'=>Employee::readOne($employee_id),
+                'message'=>'',
+                'action'=>'Edit existing employee   >>>'
             ]);
         }
     }
 
-    public function edit($employee_id)
-    {
-        $this->employee = Employee::readOne($employee_id);
-        $this->view->render($this->viewDir . 'edit',[
-            'message'=>'',
-            'employee'=>$this->employee
-        ]);
-    }
-
-    public function editOne()
+    public function action()
     {
         $this->prepareData();
 
-        if($this->firstnameControll()
-        && $this->lastnameControll()
-        && $this->phonenumControll()
-        && $this->emailControll()
-        && $this->passwordControll()){
-            Employee::update($_POST);
-            $this->index();
+        if($_POST['employee_id']==0){
+            if($this->firstnameControll()
+            && $this->lastnameControll()
+            && $this->phonenumControll()
+            && $this->emailControll()
+            && $this->passwordControll()){
+                unset($_POST['employee_id']);
+                Employee::create($_POST);
+            }else{
+                $this->view->render($this->viewDir . 'details',[
+                    'message'=>$this->message,
+                    'employee'=>$this->employee,
+                    'action'=>'Add new employee   >>>'
+                ]);
+                return;
+            }
         }else{
-            $this->view->render($this->viewDir . 'edit',[
-                'message'=>$this->message,
-                'employee'=>$this->employee
-            ]);
+            if($this->firstnameControll()
+            && $this->lastnameControll()
+            && $this->phonenumControll()
+            && $this->emailControll()
+            && $this->passwordControll()){
+                Employee::update($_POST);
+                $this->index();
+            }else{
+                $this->view->render($this->viewDir . 'details',[
+                    'message'=>$this->message,
+                    'employee'=>$this->employee,
+                    'action'=>'Edit new employee   >>>'
+                ]);
+                return;
+            }
         }
+        header('location:' . App::config('url') . 'employee/index');
+        
     }
 
     private function prepareData()
@@ -152,7 +156,6 @@ class EmployeeController extends AuthorizationController
             return false;
         }
         unset($_POST['passwordcheck']);
-        unset($this->employee->passwordcheck);
         $_POST['userpassword']=password_hash($this->employee->userpassword,PASSWORD_BCRYPT);
         return true;
     }
