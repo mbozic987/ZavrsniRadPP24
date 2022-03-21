@@ -1,1 +1,16 @@
-<h3>Client query form</h3>
+<form class="log-in-form"
+action="<?=App::config('url')?>query/check"
+method="POST">
+  <h4 class="text-center">Client query form</h4>
+  <label>
+    <input type="text" name="query" placeholder="6-digit code" />
+  </label>
+  <p>
+    <input type="submit" class="button expanded" value="Check status" />
+  </p>
+  <hr/>
+  <p><?=$message?></p>
+  <p>Code: aaaaaa</p>
+  <p>Code: a0a0a0</p>
+  <p>Code: 0a0a0a</p>
+</form>
