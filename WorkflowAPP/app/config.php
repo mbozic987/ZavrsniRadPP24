@@ -23,6 +23,7 @@ if($_SERVER['SERVER_ADDR']==='127.0.0.1'){
 return [
     'dev' => $dev,
     'url' => $url,
+    'rpp' => 20,
     'titleApp' => 'Workflow',
     'db' => $db
 ];

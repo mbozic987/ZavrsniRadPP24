@@ -4,9 +4,30 @@ class Employee
 {
     //CRUD
 
-    //R - Read
-    public static function read()
+    public static function employeeTotal($cond)
     {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+
+        select count(a.employee_id)
+        from employee a 
+        left join workorder b 
+        on a.employee_id = b.employee_repairman or a.employee_id = b.employee_frontdesk 
+        where concat(a.firstname, \' \', a.lastname, \' \', a.employee_role) like :cond
+
+        ');
+        $cond = '%' . $cond . '%';
+        $exp->bindParam('cond',$cond);
+        $exp->execute();
+        return $exp->fetchColumn();
+    }
+
+    //R - Read
+    public static function read($page, $cond)
+    {
+        $rpp = App::config('rpp');
+        $from = $page * $rpp - $rpp;
+
         $conn = DB::getInstance();
         $exp = $conn->prepare('
 
@@ -14,11 +35,18 @@ class Employee
         a.userpassword, a.employee_role, count(b.workorder_id) as workorder
         from employee a left join workorder b 
         on a.employee_id = b.employee_repairman or a.employee_id = b.employee_frontdesk 
-        group by a.employee_id, a.firstname, a.lastname, a.phonenum, a.email,
-        a.userpassword, a.employee_role
-        order by 7 asc, 3;
+        where concat(a.firstname, \' \', a.lastname, \' \', a.employee_role) like :cond
+        group by 
+        a.employee_id, a.firstname, a.lastname, a.phonenum,
+        a.email, a.userpassword, a.employee_role
+        order by 7 asc, 3
+        limit :from, :rpp;
 
         ');
+        $cond = '%' . $cond . '%';
+        $exp->bindValue('from',$from,PDO::PARAM_INT);
+        $exp->bindValue('rpp',$rpp,PDO::PARAM_INT);
+        $exp->bindParam('cond',$cond);
         $exp->execute();
         return $exp->fetchAll();
     }

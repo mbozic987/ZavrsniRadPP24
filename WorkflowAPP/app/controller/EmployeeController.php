@@ -24,8 +24,33 @@ class EmployeeController extends AuthorizationController
 
     public function index()
     {
+        if(!isset($_GET['page'])){
+            $page = 1;
+        }else{
+            $page=(int)$_GET['page'];
+        }
+        if($page==0){
+            $page = 1;
+        }
+
+        if(!isset($_GET['cond'])){
+            $cond = '';
+        }else{
+            $cond=$_GET['cond'];
+        }
+
+        $employeeTotal = Employee::employeeTotal($cond);
+        $pageTotal = ceil($employeeTotal / App::config('rpp'));
+
+        if($page>$pageTotal){
+            $page = $pageTotal;
+        }
+
         $this->view->render($this->viewDir . 'index',[
-            'employee' => Employee::read()
+            'employee' => Employee::read($page, $cond),
+            'cond'=>$cond,
+            'page'=>$page,
+            'pageTotal'=>$pageTotal
         ]);
     }
 

@@ -1,8 +1,15 @@
 <div class="grid-x">
-    <div class="large-6 cell">
+    <div class="large-8 medium-8 cell">
         <h1 style="font-size: 2rem">Employees</h1>
     </div>
-    <div class="large-6 cell" style="text-align: right">
+    <div class="large-3 medium-3 cell">
+        <form action="<?=App::config('url')?>employee/index" method="get">
+            <input type="text" name="cond"
+            placeholder="Search by frstname, lastname, role"
+            value="<?=$cond?>"/>
+        </form>
+    </div>
+    <div class="large-1 medium-1 cell" style="text-align: right">
         <a href="<?=App::config('url')?>employee/details">
             <i title="Add employee" class="fas fa-2x fa-user-plus"></i>
         </a>
@@ -46,3 +53,12 @@
         <?php endforeach;?>
     </tbody>
 </table>
+<nav aria-label="Pagination">
+  <ul class="pagination text-center">
+    <li class="pagination-previous disabled">Previous</li>
+    <li class="current"><span class="show-for-sr">You're on page</span>
+        <?=$page?>/<?=$pageTotal?>
+    </li>
+    <li class="pagination-next"><a href="#" aria-label="Next page">Next</a></li>
+  </ul>
+</nav>
