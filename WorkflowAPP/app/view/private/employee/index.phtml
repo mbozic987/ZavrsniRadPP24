@@ -55,10 +55,15 @@
 </table>
 <nav aria-label="Pagination">
   <ul class="pagination text-center">
-    <li class="pagination-previous disabled">Previous</li>
+    <li class="pagination-previous">
+        <a href="<?=App::config('url')?>employee/index?cond=<?=$cond?>&page=
+        <?php echo $page-1;?>" aria-label="Previous page">
+        Previous <span class="show-for-sr">page</span></a></li>
     <li class="current"><span class="show-for-sr">You're on page</span>
         <?=$page?>/<?=$pageTotal?>
     </li>
-    <li class="pagination-next"><a href="#" aria-label="Next page">Next</a></li>
+    <li class="pagination-next"><a href="<?=App::config('url')?>employee/index?cond=<?=$cond?>&page=
+        <?php echo $page+1;?>" aria-label="Next page">
+        Next <span class="show-for-sr">page</span></a></li>
   </ul>
 </nav>
