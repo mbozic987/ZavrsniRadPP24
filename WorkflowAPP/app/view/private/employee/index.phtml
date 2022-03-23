@@ -5,7 +5,7 @@
     <div class="large-3 medium-3 cell">
         <form action="<?=App::config('url')?>employee/index" method="get">
             <input type="text" name="cond"
-            placeholder="Search by frstname, lastname, role"
+            placeholder="Search by frstname, lastname or role"
             value="<?=$cond?>"/>
         </form>
     </div>
@@ -58,12 +58,14 @@
     <li class="pagination-previous">
         <a href="<?=App::config('url')?>employee/index?cond=<?=$cond?>&page=
         <?php echo $page-1;?>" aria-label="Previous page">
-        Previous <span class="show-for-sr">page</span></a></li>
+        Previous <span class="show-for-sr">page</span></a>
+    </li>
     <li class="current"><span class="show-for-sr">You're on page</span>
         <?=$page?>/<?=$pageTotal?>
     </li>
     <li class="pagination-next"><a href="<?=App::config('url')?>employee/index?cond=<?=$cond?>&page=
         <?php echo $page+1;?>" aria-label="Next page">
-        Next <span class="show-for-sr">page</span></a></li>
+        Next <span class="show-for-sr">page</span></a>
+    </li>
   </ul>
 </nav>
