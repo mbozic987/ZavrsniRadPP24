@@ -220,4 +220,60 @@ class DeviceController extends AuthorizationController
         }
         return true;
     }
+
+    public function test($function){
+        switch ($function) {
+            case 'add1000':
+                for($i=0;$i<1000;$i++){
+                    Device::create([
+                        'firstname'=>'Pero',
+                        'lastname'=>'Perić',
+                        'company'=>'Peronato',
+                        'phonenum'=>'09898080',
+                        'email'=>'pero@pero.com',
+                        'manufacturer'=>'Kercher',
+                        'model'=>'Peraja 3000',
+                        'serialnum'=>'9876543210'
+                    ]);
+                }
+                break;
+            case 'add':
+                Device::create([
+                    'firstname'=>'Pero',
+                    'lastname'=>'Perić',
+                    'company'=>'Peronato',
+                    'phonenum'=>'09898080',
+                    'email'=>'pero@pero.com',
+                    'manufacturer'=>'Kercher',
+                    'model'=>'Peraja 3000',
+                    'serialnum'=>'9876543210'
+                ]);
+                break;
+            case 'edit':
+                Device::update([
+                    'firstname'=>'Pero123',
+                    'lastname'=>'Perić123',
+                    'company'=>'Peronato123',
+                    'phonenum'=>'09898080',
+                    'email'=>'pero@pero.com',
+                    'manufacturer'=>'Kercher',
+                    'model'=>'Peraja 3000',
+                    'serialnum'=>'9876543210',
+                    'device_id'=>4
+                ]);
+                break;
+            case 'delete':
+                Device::delete(4);
+                break;
+            case 'index':
+                print_r(Device::read());
+                break;
+            case 'read':
+                print_r(Device::readOne(1));
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
 }
