@@ -4,9 +4,32 @@ class Device
 {
     //CRUD
 
-    //R - Read
-    public static function read()
+    public static function deviceTotal($cond)
     {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            select count(a.device_id)
+            from device a 
+            inner join client b on a.client = b.client_id 
+            left join workorder c on a.device_id = c.device
+            where concat(b.firstname, \' \', b.lastname, \' \', ifnull(b.company,\'\'),
+            a.manufacturer, \' \', a.model) like :cond;
+
+        ');
+        $cond = '%' . $cond . '%';
+        $exp->bindParam('cond',$cond);
+        $exp->execute();
+        return $exp->fetchColumn();
+    }
+
+    //R - Read
+    public static function read($page, $cond)
+    {
+
+        $rpp = App::config('rpp');
+        $from = $page * $rpp - $rpp;
+
         $conn = DB::getInstance();
         $exp = $conn->prepare('
 
@@ -16,12 +39,19 @@ class Device
             from device a 
             inner join client b on a.client = b.client_id 
             left join workorder c on a.device_id = c.device
+            where concat(b.firstname, \' \', b.lastname, \' \', ifnull(b.company,\'\'),
+            a.manufacturer, \' \', a.model) like :cond
             group by 
             a.device_id, b.firstname, b.lastname, b.company, 
             b.phonenum, b.email, a.manufacturer, a.model, a.serialnum
-            order by 3, 2;
+            order by 3, 2
+            limit :from, :rpp;
 
         ');
+        $cond = '%' . $cond . '%';
+        $exp->bindValue('from',$from,PDO::PARAM_INT);
+        $exp->bindValue('rpp',$rpp,PDO::PARAM_INT);
+        $exp->bindParam('cond',$cond);
         $exp->execute();
         return $exp->fetchAll();
     }

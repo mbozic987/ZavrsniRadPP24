@@ -5,7 +5,7 @@
     <div class="large-3 medium-3 cell">
         <form action="<?=App::config('url')?>device/index" method="get">
             <input type="text" name="cond"
-            placeholder="Search by Client, manufacturer or model"
+            placeholder="Search by client, manufacturer or model"
             value="<?=$cond?>"/>
         </form>
     </div>
@@ -15,19 +15,23 @@
         </a>
     </div>
 </div>
-<table class="table-expand" id="tabletemp">
+<table id="tabletemp">
   <thead>
-    <tr class="table-expand-row">
+    <tr>
       <th>Client</th>
+      <th>Phone</th>
+      <th>E-mail</th>
       <th>Manufacturer</th>
-      <th>Model</th>
+      <th>Model</th>            
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach($entity as $e): ?>
-      <tr class="table-expand-row" data-open-details>
+      <tr>
         <td><?=$e->firstname?> <?=$e->lastname?> <?=$e->company?></td>
+        <td><?=$e->phonenum?></td>
+        <td><?=$e->email?></td>
         <td><?=$e->manufacturer?></td>
         <td><?=$e->model?></td>
         <td>
@@ -45,10 +49,6 @@
              class="fas fa-2x fa-minus-square"></i>
           <?php endif; ?>
         </td>
-      </tr>
-      <tr class="table-expand-row-content">
-        <td class="table-expand-row-nested">Phone number: <?=$e->phonenum?></td>
-        <td class="table-expand-row-nested">E_mail: <?=$e->email?></td>
       </tr>
     <?php endforeach;?>
   </tbody>
