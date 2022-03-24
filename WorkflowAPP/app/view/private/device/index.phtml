@@ -55,17 +55,25 @@
 </table>
 <nav aria-label="Pagination">
   <ul class="pagination text-center">
+  <li class="pagination-first">
+        <a href="<?=App::config('url')?>device/index?cond=<?=$cond?>&page=1" aria-label="First page">
+        First <span class="show-for-sr">page</span></a>
+    </li>
     <li class="pagination-previous">
-        <a href="<?=App::config('url')?>employee/index?cond=<?=$cond?>&page=
+        <a href="<?=App::config('url')?>device/index?cond=<?=$cond?>&page=
         <?php echo $page-1;?>" aria-label="Previous page">
         Previous <span class="show-for-sr">page</span></a>
     </li>
     <li class="current"><span class="show-for-sr">You're on page</span>
         <?=$page?>/<?=$pageTotal?>
     </li>
-    <li class="pagination-next"><a href="<?=App::config('url')?>employee/index?cond=<?=$cond?>&page=
+    <li class="pagination-next"><a href="<?=App::config('url')?>device/index?cond=<?=$cond?>&page=
         <?php echo $page+1;?>" aria-label="Next page">
         Next <span class="show-for-sr">page</span></a>
+    </li>
+    <li class="pagination-last"><a href="<?=App::config('url')?>device/index?cond=<?=$cond?>&page=
+        <?php echo $pageTotal;?>" aria-label="Last page">
+        Last <span class="show-for-sr">page</span></a>
     </li>
   </ul>
 </nav>
