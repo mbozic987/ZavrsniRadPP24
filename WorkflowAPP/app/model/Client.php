@@ -4,9 +4,30 @@ class Client
 {
     //CRUD
 
-    //R - Read
-    public static function read()
+    public static function clientTotal($cond)
     {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            select count(a.client_id)
+            from client a
+            left join device b
+            on a.client_id = b.client
+            where concat(a.firstname, \' \', a.lastname, \' \', ifnull(a.company,\'\') like :cond;
+
+        ');
+        $cond = '%' . $cond . '%';
+        $exp->bindParam('cond',$cond);
+        $exp->execute();
+        return $exp->fetchColumn();
+    }
+
+    //R - Read
+    public static function read($page, $cond)
+    {
+        $rpp = App::config('rpp');
+        $from = $page * $rpp - $rpp;
+
         $conn = DB::getInstance();
         $exp = $conn->prepare('
 
@@ -14,11 +35,17 @@ class Client
         count(b.device_id) as device
         from client a left join device b 
         on a.client_id = b.client 
+        where concat(a.firstname, \' \', a.lastname, \' \', ifnull(a.company,\'\') like :cond
         group by 
         a.client_id, a.firstname, a.lastname, a.company, a.phonenum, a.email
-        order by 3 asc, 4;
+        order by 3 asc, 4
+        limit :from, :rpp;
 
         ');
+        $cond = '%' . $cond . '%';
+        $exp->bindValue('from',$from,PDO::PARAM_INT);
+        $exp->bindValue('rpp',$rpp,PDO::PARAM_INT);
+        $exp->bindParam('cond',$cond);
         $exp->execute();
         return $exp->fetchAll();
     }

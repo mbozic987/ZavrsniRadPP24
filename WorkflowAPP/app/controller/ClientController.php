@@ -22,8 +22,34 @@ class ClientController extends AuthorizationController
 
     public function index()
     {
+        if(!isset($_GET['page'])){
+            $page = 1;
+        }else{
+            $page=(int)$_GET['page'];
+        }
+        if($page==0){
+            $page = 1;
+        }
+
+        if(!isset($_GET['cond'])){
+            $cond = '';
+        }else{
+            $cond=$_GET['cond'];
+        }
+
+        $clientTotal = Client::clientTotal($cond);
+        $pageTotal = ceil($clientTotal / App::config('rpp'));
+
+        if($page>$pageTotal){
+            $page = $pageTotal;
+        }
+
        $this->view->render($this->viewDir . 'index',[
-           'client' => Client::read()
+           'client' => Client::read($page,$cond),
+           'cond' => $cond,
+           'page' => $page,
+           'pageTotal' => $pageTotal,
+           'clientTotal'=>$clientTotal
        ]);
     } 
 

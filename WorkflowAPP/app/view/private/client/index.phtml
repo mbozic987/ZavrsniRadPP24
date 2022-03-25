@@ -1,16 +1,22 @@
 <div class="grid-x">
-    <div class="large-6 cell">
+    <div class="large-8 medium-8 cell">
         <h1 style="font-size: 2rem">Clients</h1>
     </div>
-    <div class="large-6 cell" style="text-align: right">
+    <div class="large-3 medium-3 cell">
+        <form action="<?=App::config('url')?>client/index" method="get">
+            <input type="text" name="cond"
+            placeholder="Search by firstname, lastname or company"
+            value="<?=$cond?>"/>
+        </form>
+    </div>
+    <div class="large-1 medium-1 cell" style="text-align: right">
         <a href="<?=App::config('url')?>client/details">
             <i title="Add client" class="fas fa-2x fa-user-plus"></i>
         </a>
     </div>
 </div>
-
 <pre>
-    <?php print_r($client);?>
+    <?php print_r($clientTotal); ?>
 </pre>
 <table id="tabletemp">
     <thead>
@@ -50,3 +56,27 @@
         <?php endforeach;?>
     </tbody>
 </table>
+<nav aria-label="Pagination">
+  <ul class="pagination text-center">
+  <li class="pagination-first">
+        <a href="<?=App::config('url')?>client/index?cond=<?=$cond?>&page=1" aria-label="First page">
+        First <span class="show-for-sr">page</span></a>
+    </li>
+    <li class="pagination-previous">
+        <a href="<?=App::config('url')?>client/index?cond=<?=$cond?>&page=
+        <?php echo $page-1;?>" aria-label="Previous page">
+        Previous <span class="show-for-sr">page</span></a>
+    </li>
+    <li class="current"><span class="show-for-sr">You're on page</span>
+        <?=$page?>/<?=$pageTotal?>
+    </li>
+    <li class="pagination-next"><a href="<?=App::config('url')?>client/index?cond=<?=$cond?>&page=
+        <?php echo $page+1;?>" aria-label="Next page">
+        Next <span class="show-for-sr">page</span></a>
+    </li>
+    <li class="pagination-last"><a href="<?=App::config('url')?>client/index?cond=<?=$cond?>&page=
+        <?php echo $pageTotal;?>" aria-label="Last page">
+        Last <span class="show-for-sr">page</span></a>
+    </li>
+  </ul>
+</nav>
