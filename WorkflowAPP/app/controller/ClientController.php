@@ -48,8 +48,7 @@ class ClientController extends AuthorizationController
            'client' => Client::read($page,$cond),
            'cond' => $cond,
            'page' => $page,
-           'pageTotal' => $pageTotal,
-           'clientTotal'=>$clientTotal
+           'pageTotal' => $pageTotal
        ]);
     } 
 
