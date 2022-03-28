@@ -35,7 +35,7 @@ class Client
             count(b.device_id) as device
             from client a left join device b 
             on a.client_id = b.client 
-            where concat(a.firstname, \' \', a.lastname, \' \', ifnull(a.company,\'\') like :cond
+            where concat(a.firstname, \' \', a.lastname, \' \', ifnull(a.company,\'\')) like :cond
             group by 
             a.client_id, a.firstname, a.lastname, a.company, a.phonenum, a.email
             order by 3 asc, 4
