@@ -13,7 +13,7 @@ class Client
             from client a
             left join device b
             on a.client_id = b.client
-            where concat(a.firstname, \' \', a.lastname, \' \', ifnull(a.company,\'\') like :cond;
+            where concat(a.firstname, \' \', a.lastname, \' \', ifnull(a.company,\'\')) like :cond;
 
         ');
         $cond = '%' . $cond . '%';
