@@ -71,11 +71,11 @@ insert into client (client_id,firstname,lastname,company,phonenum,email) values
 
 insert into employee (employee_id,firstname,lastname,phonenum,email,userpassword,employee_role) values
 # userpassword a
-(null,'Božidar','Mašić','0992587412','bozo@gmail.com','$2a$12$lBl3DQVaDw2zHkH9ht.64uEQ.TAqh18PLk/NKexRyEfpBeT/TMsbi','admin'),
+(null,'Božidar','Mašić','0992587412','bozo@gmail.com','$2a$12$lBl3DQVaDw2zHkH9ht.64uEQ.TAqh18PLk/NKexRyEfpBeT/TMsbi','Admin'),
 # userpassword s1
-(null,'Robert','Dudaš','0955524563','robinjo@gmail.com','$2a$12$LZWiYT1ZrFtQJdf0YwqqxOW/wmNzHhD4N.crhTW7VIRzKiWrTv9Qq','repairman'),
+(null,'Robert','Dudaš','0955524563','robinjo@gmail.com','$2a$12$LZWiYT1ZrFtQJdf0YwqqxOW/wmNzHhD4N.crhTW7VIRzKiWrTv9Qq','Repairman'),
 # userpassword s2
-(null,'Mladen','Božić','0977897819','mladjahni@gmail.com','$2a$12$40ZLRJu6GrCgwqOZugAIauxK8CQphU6ZAUaYjB7qDSSm8AM.32I/G','repairman');
+(null,'Mladen','Božić','0977897819','mladjahni@gmail.com','$2a$12$40ZLRJu6GrCgwqOZugAIauxK8CQphU6ZAUaYjB7qDSSm8AM.32I/G','Repairman');
 
 insert into device(device_id,client,manufacturer,model,serialnum) values
 (null,1,'Bosch','GSH 5 40',null),
