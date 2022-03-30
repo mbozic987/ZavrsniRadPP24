@@ -6,6 +6,11 @@ class DashboardController extends AuthorizationController
 
     public function index()
     {
-        $this->view->render($this->viewDir . 'dashboard');
+        if($_SESSION['authorized']->employee_role==='Admin'){
+            $this->view->render($this->viewDir . 'adminDashboard');
+        }else{
+            $this->view->render($this->viewDir . 'repairmanDashboard');
+
+        }
     }
 }

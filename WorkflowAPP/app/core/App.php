@@ -61,4 +61,13 @@ class App
 
         return false;
     }
+
+    public static function admin()
+    {
+        if(App::authorized() && $_SESSION['authorized']->employee_role==='Admin'){
+            return true;
+        }
+
+        return false;
+    }
 }
