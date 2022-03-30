@@ -1,6 +1,6 @@
 <?php
 
-class ClientController extends AuthorizationController
+class ClientController extends AdminController
 {
     private $viewDir = 'private' . DIRECTORY_SEPARATOR . 
                         'client' . DIRECTORY_SEPARATOR;

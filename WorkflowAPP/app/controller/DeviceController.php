@@ -1,6 +1,6 @@
 <?php
 
-class DeviceController extends AuthorizationController
+class DeviceController extends AdminController
 {
     private $viewDir = 'private' . DIRECTORY_SEPARATOR . 
                         'device' . DIRECTORY_SEPARATOR;

@@ -1,6 +1,6 @@
 <?php
 
-class EmployeeController extends AuthorizationController
+class EmployeeController extends AdminController
 {
     private $viewDir = 'private' . DIRECTORY_SEPARATOR . 
                          'employee' . DIRECTORY_SEPARATOR;
