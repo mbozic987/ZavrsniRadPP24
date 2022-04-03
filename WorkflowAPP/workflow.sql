@@ -27,7 +27,6 @@ create table workorder(
     workorder_id            int not null primary key auto_increment,
     employee_frontdesk      int not null,
     employee_repairman      int,
-    workstation             int,
     device                  int not null,
     malfunction             varchar(255) not null,
     receive_date            datetime not null default now(),
@@ -83,7 +82,7 @@ insert into device(device_id,client,manufacturer,model,serialnum) values
 (null,3,'DeWalt','DCN 180',null),
 (null,4,'Festool','Nepoznato','7451245786245123');
 
-insert into workorder(workorder_id,employee_frontdesk,employee_repairman,workstation,device,malfunction,receive_date,repair_status,work_done,query_id,repair_date) values
-(null,1,2,1,1,'Gubi kontakt','2021-11-10',3,'Obavljena dijagnostika, prekidač nagoren','aaaaaa',null),
-(null,1,2,2,2,'Čudno se čuje','2021-11-10',4,'Obavljena dijagnostika, oštećeni zupčanici, ugrađeni novi zupčanici','0a0a0a','2021-11-10'),
-(null,1,3,1,3,'','2021-11-10',2,'','a0a0a0',null);
+insert into workorder(workorder_id,employee_frontdesk,employee_repairman,device,malfunction,receive_date,repair_status,work_done,query_id,repair_date) values
+(null,1,2,1,'Gubi kontakt','2021-11-10',3,'Obavljena dijagnostika, prekidač nagoren','aaaaaa',null),
+(null,1,2,2,'Čudno se čuje','2021-11-10',4,'Obavljena dijagnostika, oštećeni zupčanici, ugrađeni novi zupčanici','0a0a0a','2021-11-10'),
+(null,1,3,3,'','2021-11-10',2,'','a0a0a0',null);
