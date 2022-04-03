@@ -7,12 +7,7 @@ class Workorder
         $conn = DB::getInstance();
         $exp = $conn->prepare('
         
-            select a.workorder_id, b.device_id, b.manufacturer, b.model, b.serialnum,
-            c.client_id, c.firstname, c.lastname, c.company, c.phonenum, c.email,
-            d.employee_id as repairman_id, d.firstname as repairman_firstname,
-            e.employee_id as frontdesk_id, e.firstname as frontdesk_firstname,
-            a.malfunction, a.receive_date, f.status_name, a.work_done,
-            a.query_id, a.repair_date
+            select count(a.workorder_id)
             from workorder a
             inner join device b on a.device = b.device_id
             inner join client c on b.client = c.client_id
@@ -43,7 +38,7 @@ class Workorder
             c.client_id, c.firstname, c.lastname, c.company, c.phonenum, c.email,
             d.employee_id as repairman_id, d.firstname as repairman_firstname,
             e.employee_id as frontdesk_id, e.firstname as frontdesk_firstname,
-            a.malfunction, a.receive_date, f.status_name, a.work_done,
+            a.malfunction, a.receive_date, f.repair_status_id, f.status_name, a.work_done,
             a.query_id, a.repair_date
             from workorder a
             inner join device b on a.device = b.device_id
@@ -57,10 +52,10 @@ class Workorder
             group by
             a.workorder_id, b.device_id, b.manufacturer, b.model, b.serialnum,
             c.client_id, c.firstname, c.lastname, c.company, c.phonenum, c.email,
-            d.employee_id, d.firstname, e.employee_id, e.firstname,
-            a.malfunction, a.receive_date, f.status_name, a.work_done,
+            d.employee_id, d.firstname,e.employee_id, e.firstname,
+            a.malfunction, a.receive_date, f.repair_status_id, f.status_name, a.work_done,
             a.query_id, a.repair_date
-            order by 21, 19
+            order by 1, 18
             limit :from, :rpp;
 
         

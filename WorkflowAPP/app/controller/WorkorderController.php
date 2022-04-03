@@ -51,7 +51,7 @@ class WorkorderController extends AuthorizationController
             $cond = $_GET['cond'];
         }
 
-        $workorederTotal = Workorder::workorderTotal($cond);
+        $workorderTotal = Workorder::workorderTotal($cond);
         $pageTotal = ceil($workorderTotal / App::config('rpp'));
 
         if($page>$pageTotal){

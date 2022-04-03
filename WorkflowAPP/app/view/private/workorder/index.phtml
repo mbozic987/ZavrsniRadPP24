@@ -1,1 +1,119 @@
-<h3>Workorders</h3>
+<div class="grid-x">
+    <div class="large-8 medium-8 cell">
+        <h1 style="font-size: 2rem">Work orders</h1>
+    </div>
+    <div class="large-3 medium-3 cell">
+        <form action="<?=App::config('url')?>workorder/index" method="get">
+            <input type="text" name="cond"
+            placeholder="Search by client, device, reparman or status"
+            value="<?=$cond?>"/>
+        </form>
+    </div>
+    <div class="large-1 medium-1 cell" style="text-align: right">
+        <a href="<?=App::config('url')?>workorder/details">
+            <i title="Add work order" class="fas fa-2x fa-folder-plus"></i>
+        </a>
+    </div>
+</div>
+<table id="tabletemp">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Client</th>
+      <th>Manufacturer</th>
+      <th>Model</th>
+      <th>Repairman</th>
+      <th>Status</th>            
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($entity as $e): ?>
+      <tr>
+        <td><?=$e->workorder_id?></td>
+        <td><?=$e->firstname?> <?=$e->lastname?> <?=$e->company?></td>
+        <td><?=$e->manufacturer?></td>
+        <td><?=$e->model?></td>
+        <td><?=$e->repairman_firstname?></td>
+        <td><?=$e->status_name?></td>
+        <td>
+          <a href="<?=App::config('url')?>workorder/details/<?=$e->workorder_id?>">
+            <i title="Edit work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-pen-square"></i>
+          </a>
+          <a onclick="return confirm('Are you sure you want to delete this work order')" 
+            href="<?=App::config('url')?>workorder/delete/<?=$e->workorder_id?>">
+            <i style="color:red; margin-left:20px" title="Delete work order No. <?=$e->workorder_id?>"
+             class="fas fa-2x fa-minus-square"></i>
+          </a>
+          <a data-open="details"><i style="margin-left:20px" 
+          title="Details for work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-info"></i></a>
+        </td>
+      </tr>
+      <div class="large reveal" id="details" data-reveal>
+        <h3>Work order No. <?=$e->workorder_id?></h3>
+        <hr/>
+        <h4>Client</h4>
+        <div class="grid-x" style="text-align:center">
+            <div class="large-2 medium-2 small-2 cell">Client ID<br/><?=$e->client_id?></div>
+            <div class="large-2 medium-2 small-2 cell">Firstname<br/><?=$e->firstname?></div>
+            <div class="large-2 medium-2 small-2 cell">Lastname<br/><?=$e->lastname?></div>
+            <div class="large-2 medium-2 small-2 cell">Company<br/><?=$e->company?></div>
+            <div class="large-2 medium-2 small-2 cell">Phone number<br/><?=$e->phonenum?></div>
+            <div class="large-2 medium-2 small-2 cell">E-mail<br/><?=$e->email?></div>
+        </div>
+        <hr/>
+        <h4>Device</h4>
+        <div class="grid-x" style="text-align:center">
+            <div class="large-2 medium-2 small-2 cell">Device ID<br/><?=$e->device_id?></div>
+            <div class="large-2 medium-2 small-2 cell">Receive date<br/><?=$e->receive_date?></div>
+            <div class="large-2 medium-2 small-2 cell">Manufacturer<br/><?=$e->manufacturer?></div>
+            <div class="large-2 medium-2 small-2 cell">Model<br/><?=$e->model?></div>
+            <div class="large-2 medium-2 small-2 cell">Serial number<br/><?=$e->serialnum?></div>
+            <div class="large-2 medium-2 small-2 cell">Malfunction<br/><?=$e->malfunction?></div>
+        </div>
+        <hr/>
+        <h4>Workshop</h4>
+        <div class="grid-x" style="text-align:center">
+            <div class="large-2 medium-2 small-2 cell">Frontdesk<br/><?=$e->frontdesk_firstname?></div>
+            <div class="large-2 medium-2 small-2 cell">Repairman<br/><?=$e->repairman_firstname?></div>
+            <div class="large-2 medium-2 small-2 cell">Status<br/><?=$e->status_name?></div>
+            <div class="large-2 medium-2 small-2 cell">Work done<br/><?=$e->work_done?></div>
+            <div class="large-2 medium-2 small-2 cell">Repair date<br/><?=$e->repair_date?></div>
+            <div class="large-2 medium-2 small-2 cell">Query ID<br/><?=$e->query_id?></div>
+        </div>
+        <hr/>
+        <hr/>
+        <button class="close-button" data-close aria-label="Close reveal" type="button">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <?php endforeach;?>
+  </tbody>
+</table>
+<nav aria-label="Pagination">
+  <ul class="pagination text-center">
+  <li class="pagination-first">
+        <a href="<?=App::config('url')?>workorder/index?cond=<?=$cond?>&page=1" aria-label="First page">
+        First <span class="show-for-sr">page</span></a>
+    </li>
+    <li class="pagination-previous">
+        <a href="<?=App::config('url')?>workorder/index?cond=<?=$cond?>&page=
+        <?php echo $page-1;?>" aria-label="Previous page">
+        Previous <span class="show-for-sr">page</span></a>
+    </li>
+    <li class="current"><span class="show-for-sr">You're on page</span>
+        <?=$page?>/<?=$pageTotal?>
+    </li>
+    <li class="pagination-next"><a href="<?=App::config('url')?>workorder/index?cond=<?=$cond?>&page=
+        <?php echo $page+1;?>" aria-label="Next page">
+        Next <span class="show-for-sr">page</span></a>
+    </li>
+    <li class="pagination-last"><a href="<?=App::config('url')?>workorder/index?cond=<?=$cond?>&page=
+        <?php echo $pageTotal;?>" aria-label="Last page">
+        Last <span class="show-for-sr">page</span></a>
+    </li>
+  </ul>
+</nav>
+<pre>
+    <?php print_r($entity);?>
+</pre>
