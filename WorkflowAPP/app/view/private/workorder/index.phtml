@@ -50,36 +50,81 @@
         </td>
       </tr>
       <div class="large reveal" id="details" data-reveal>
-        <h3>Work order No. <?=$e->workorder_id?></h3>
-        <hr/>
-        <h4>Client</h4>
-        <div class="grid-x" style="text-align:center">
-            <div class="large-2 medium-2 small-2 cell">Client ID<br/><?=$e->client_id?></div>
-            <div class="large-2 medium-2 small-2 cell">Firstname<br/><?=$e->firstname?></div>
-            <div class="large-2 medium-2 small-2 cell">Lastname<br/><?=$e->lastname?></div>
-            <div class="large-2 medium-2 small-2 cell">Company<br/><?=$e->company?></div>
-            <div class="large-2 medium-2 small-2 cell">Phone number<br/><?=$e->phonenum?></div>
-            <div class="large-2 medium-2 small-2 cell">E-mail<br/><?=$e->email?></div>
-        </div>
-        <hr/>
-        <h4>Device</h4>
-        <div class="grid-x" style="text-align:center">
-            <div class="large-2 medium-2 small-2 cell">Device ID<br/><?=$e->device_id?></div>
-            <div class="large-2 medium-2 small-2 cell">Receive date<br/><?=$e->receive_date?></div>
-            <div class="large-2 medium-2 small-2 cell">Manufacturer<br/><?=$e->manufacturer?></div>
-            <div class="large-2 medium-2 small-2 cell">Model<br/><?=$e->model?></div>
-            <div class="large-2 medium-2 small-2 cell">Serial number<br/><?=$e->serialnum?></div>
-            <div class="large-2 medium-2 small-2 cell">Malfunction<br/><?=$e->malfunction?></div>
-        </div>
-        <hr/>
-        <h4>Workshop</h4>
-        <div class="grid-x" style="text-align:center">
-            <div class="large-2 medium-2 small-2 cell">Frontdesk<br/><?=$e->frontdesk_firstname?></div>
-            <div class="large-2 medium-2 small-2 cell">Repairman<br/><?=$e->repairman_firstname?></div>
-            <div class="large-2 medium-2 small-2 cell">Status<br/><?=$e->status_name?></div>
-            <div class="large-2 medium-2 small-2 cell">Work done<br/><?=$e->work_done?></div>
-            <div class="large-2 medium-2 small-2 cell">Repair date<br/><?=$e->repair_date?></div>
-            <div class="large-2 medium-2 small-2 cell">Query ID<br/><?=$e->query_id?></div>
+      <h3>Work order No. <?=$e->workorder_id?></h3>
+      <hr/>
+        <div class="grid-x">
+          <div class="large-4 medium-4 cell">
+            <h4>Client</h4>
+            <hr/>
+            <ul>
+              <li>
+                Client ID: <?=$e->client_id?>
+              </li>
+              <li>
+                Firstname: <?=$e->firstname?>
+              </li>
+              <li>
+                Lastname: <?=$e->lastname?>
+              </li>
+              <li>
+                Company: <?=$e->company?>
+              </li>
+              <li>
+                Phone: <?=$e->phonenum?>
+              </li>
+              <li>
+                E-mail: <?=$e->email?>
+              </li>
+            </ul>
+          </div>
+          <div class="large-4 medium-4 cell">
+            <h4>Device</h4>
+            <hr/>
+            <ul>
+              <li>
+                Device ID: <?=$e->device_id?>
+              </li>
+              <li>
+                Receive date: <?=$e->receive_date?>
+              </li>
+              <li>
+                Manufacturer: <?=$e->manufacturer?>
+              </li>
+              <li>
+                Model: <?=$e->model?>
+              </li>
+              <li>
+                Serial number: <?=$e->serialnum?>
+              </li>
+              <li>
+                Malfunction: <?=$e->malfunction?>
+              </li>
+            </ul>
+          </div>
+          <div class="large-4 medium-4 cell">
+            <h4>Workshop</h4>
+            <hr/>
+            <ul>
+              <li>
+                Frontdesk: <?=$e->frontdesk_firstname?>
+              </li>
+              <li>
+                Repairman: <?=$e->repairman_firstname?>
+              </li>
+              <li>
+                Status: <?=$e->status_name?>
+              </li>
+              <li>
+                Work done: <?=$e->work_done?>
+              </li>
+              <li>
+                Repair date: <?=$e->repair_date?>
+              </li>
+              <li>
+                Query ID: <?=$e->query_id?>
+              </li>
+            </ul>
+          </div>
         </div>
         <hr/>
         <hr/>
