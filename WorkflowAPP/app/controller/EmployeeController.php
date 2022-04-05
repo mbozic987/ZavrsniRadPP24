@@ -80,7 +80,8 @@ class EmployeeController extends AdminController
             && $this->lastnameControll()
             && $this->phonenumControll()
             && $this->emailControll()
-            && $this->passwordControll()){
+            && $this->passwordControll()
+            && $this->roleControll()){
                 unset($_POST['employee_id']);
                 Employee::create($_POST);
             }else{
@@ -96,7 +97,8 @@ class EmployeeController extends AdminController
             && $this->lastnameControll()
             && $this->phonenumControll()
             && $this->emailControll()
-            && $this->passwordControll()){
+            && $this->passwordControll()
+            && $this->roleControll()){
                 Employee::update($_POST);
             }else{
                 $this->view->render($this->viewDir . 'details',[
@@ -195,6 +197,15 @@ class EmployeeController extends AdminController
             $_POST['userpassword']=password_hash($this->employee->userpassword,PASSWORD_BCRYPT);
             return true;
         }
+    }
+
+    private function roleControll()
+    {
+        if($this->employee->employee_role!='Repairman' || 'Admin'){
+            $this->message='You must choose employee role!';
+            return false;
+        }
+        return true;
     }
 
     public function delete($employee_id)
