@@ -94,6 +94,15 @@ class Employee
         where employee_id=:employee_id;
 
         ');
+        if($_POST['userpassword']===0){
+            $exp->execute([
+                'firstname'=>$parameters['firstname'],
+                'lastname'=>$parameters['lastname'],
+                'phonenum'=>$parameters['phonenum'],
+                'email'=>$parameters['email'],
+                'employee_role'=>$parameters['employee_role']
+            ]);
+        }
         $exp->execute($parameters);
     }
 

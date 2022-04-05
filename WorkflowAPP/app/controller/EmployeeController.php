@@ -98,7 +98,6 @@ class EmployeeController extends AdminController
             && $this->emailControll()
             && $this->passwordControll()){
                 Employee::update($_POST);
-                $this->index();
             }else{
                 $this->view->render($this->viewDir . 'details',[
                     'message'=>$this->message,
@@ -171,18 +170,31 @@ class EmployeeController extends AdminController
 
     private function passwordControll()
     {
-        if(strlen(trim($this->employee->userpassword))===0
-        && strlen(trim($this->employee->passwordcheck))===0){
-            $this->message='Please enter and re-enter password!';
-            return false;
+        if($_POST['employee_id']==0){
+            if(strlen(trim($this->employee->userpassword))===0
+            || strlen(trim($this->employee->passwordcheck))===0){
+                $this->message='Please enter and re-enter password!';
+                return false;
+            }
+            if(trim($this->employee->userpassword)!=trim($this->employee->passwordcheck)){
+                $this->message='Your passwords do not match!';
+                return false;
+            }
+            unset($_POST['passwordcheck']);
+            $_POST['userpassword']=password_hash($this->employee->userpassword,PASSWORD_BCRYPT);
+            return true;
+        }elseif($_POST['userpassword']==='' 
+            && $_POST['passwordcheck']===''){
+                $_POST['userpassword']=0;
+                return true;
+        }else{
+            if(trim($this->employee->userpassword)!=trim($this->employee->passwordcheck)){
+                $this->message='Your passwords do not match!';
+                return false;
+            }
+            $_POST['userpassword']=password_hash($this->employee->userpassword,PASSWORD_BCRYPT);
+            return true;
         }
-        if(trim($this->employee->userpassword)!=trim($this->employee->passwordcheck)){
-            $this->message='Your passwords do not match!';
-            return false;
-        }
-        unset($_POST['passwordcheck']);
-        $_POST['userpassword']=password_hash($this->employee->userpassword,PASSWORD_BCRYPT);
-        return true;
     }
 
     public function delete($employee_id)
