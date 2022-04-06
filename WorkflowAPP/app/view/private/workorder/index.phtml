@@ -40,7 +40,7 @@
           <a href="<?=App::config('url')?>workorder/details/<?=$e->workorder_id?>">
             <i title="Edit work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-pen-square"></i>
           </a>
-          <a onclick="return confirm('Are you sure you want to delete this work order')" 
+          <a onclick="return confirm('Are you sure you want to delete work order No. <?=$e->workorder_id?>?')" 
             href="<?=App::config('url')?>workorder/delete/<?=$e->workorder_id?>">
             <i style="color:red; margin-left:20px" title="Delete work order No. <?=$e->workorder_id?>"
              class="fas fa-2x fa-minus-square"></i>
@@ -127,6 +127,16 @@
           </div>
         </div>
         <hr/>
+        <div style="text-align:center">
+        <a href="<?=App::config('url')?>workorder/details/<?=$e->workorder_id?>">
+            <i title="Edit work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-pen-square"></i>
+          </a>
+          <a onclick="return confirm('Are you sure you want to delete work order No. <?=$e->workorder_id?>?')" 
+            href="<?=App::config('url')?>workorder/delete/<?=$e->workorder_id?>">
+            <i style="color:red; margin-left:20px" title="Delete work order No. <?=$e->workorder_id?>"
+             class="fas fa-2x fa-minus-square"></i>
+          </a>
+        </div>
         <hr/>
         <button class="close-button" data-close aria-label="Close reveal" type="button">
         <span aria-hidden="true">&times;</span>

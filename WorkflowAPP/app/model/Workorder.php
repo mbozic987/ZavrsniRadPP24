@@ -67,4 +67,39 @@ class Workorder
         $exp->execute();
         return $exp->fetchAll();
     }
+
+    public static function readOne($workorder_id)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            select a.workorder_id, b.device_id, b.manufacturer, b.model, b.serialnum,
+            c.client_id, c.firstname, c.lastname, c.company, c.phonenum, c.email,
+            d.employee_id as repairman_id, d.firstname as repairman_firstname,
+            e.employee_id as frontdesk_id, e.firstname as frontdesk_firstname,
+            a.malfunction, a.receive_date, f.repair_status_id, f.status_name, a.work_done,
+            a.query_id, a.repair_date
+            from workorder a
+            inner join device b on a.device = b.device_id
+            inner join client c on b.client = c.client_id
+            inner join employee d on a.employee_repairman = d.employee_id
+            inner join employee e on a.employee_frontdesk = e.employee_id
+            inner join repair_status f on a.repair_status = f.repair_status_id
+            where workorder_id=:workorder_id;
+        
+        ');
+        $exp->execute(['workorder_id'=>$workorder_id]);
+        return $exp->fetch();
+    }
+
+    public static function delete($workorder_id)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            delete from workorder where workorder_id=:workorder_id;
+        
+        ');
+        $exp->execute(['workorder_id'=>$workorder_id]);
+    }
 }

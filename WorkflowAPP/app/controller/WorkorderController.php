@@ -65,4 +65,62 @@ class WorkorderController extends AuthorizationController
             'pageTotal' => $pageTotal
         ]);
     }
+
+    public function details($workorder_id=0)
+    {
+        if($workorder_id===0){
+            $this->view->render($this->viewDir . 'details',[
+                'entity'=>$this->workorder,
+                'message'=>'',
+                'action'=>'Add new work order   >>>'
+            ]);
+        }else{
+            $this->view->render($this->viewDir . 'details',[
+                'entity'=>Workorder::readOne($workorder_id),
+                'message'=>'',
+                'action'=>'Edit existing work order   >>>'
+            ]);
+        }
+    }
+
+    public function action()
+    {
+        $this->prepareData();
+
+        if($_POST['workorder_id']==0){
+            if($this->controlls){
+                Workorder::create($_POST);
+            }else{
+                $this->view->render($this->viewDir . 'details',[
+                    'entity'=>$this->workorder,
+                    'message'=>$this->message,
+                    'action'=>'Add new work order   >>>'
+                ]);
+                return;
+            }
+        }else{
+            if($this->controlls){
+                Workorder::update($_POST);
+            }else{
+                $this->view->render($this->viewDir . 'details',[
+                    'entity'=>$this->workorder,
+                    'message'=>$this->message,
+                    'action'=>'Edit work order   >>>'
+                ]);
+                return;
+            }
+        }
+        header('location:' . App::config('url') . 'workorder/index');
+    }
+
+    private function prepareData()
+    {
+        $this->workorder=(object)$_POST;
+    }
+
+    public function delete($workorder_id)
+    {
+        Workorder::delete($workorder_id);
+        $this->index();
+    }
 }

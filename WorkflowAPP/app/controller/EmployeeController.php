@@ -104,7 +104,7 @@ class EmployeeController extends AdminController
                 $this->view->render($this->viewDir . 'details',[
                     'message'=>$this->message,
                     'employee'=>$this->employee,
-                    'action'=>'Edit new employee   >>>'
+                    'action'=>'Edit employee   >>>'
                 ]);
                 return;
             }
