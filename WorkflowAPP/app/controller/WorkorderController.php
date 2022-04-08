@@ -88,7 +88,11 @@ class WorkorderController extends AuthorizationController
         $this->prepareData();
 
         if($_POST['workorder_id']==0){
-            if($this->controlls){
+            if($this->clientControll()
+            && $this->deviceControll()
+            && $this->malfunctionControll()
+            && $this->createQueryID()){
+                $_POST['status_id']=1;
                 Workorder::create($_POST);
             }else{
                 $this->view->render($this->viewDir . 'details',[
@@ -113,14 +117,52 @@ class WorkorderController extends AuthorizationController
         header('location:' . App::config('url') . 'workorder/index');
     }
 
+    public function delete($workorder_id)
+    {
+        Workorder::delete($workorder_id);
+        $this->index();
+    }
+
     private function prepareData()
     {
         $this->workorder=(object)$_POST;
     }
 
-    public function delete($workorder_id)
+    private function clientControll()
     {
-        Workorder::delete($workorder_id);
-        $this->index();
+        if(strlen(trim($this->workorder->client_id))===0){
+            $this->message='You must enter client!';
+            return false;
+        }
+        return true;
+    }
+
+    private function deviceControll()
+    {
+        if(strlen(trim($this->workorder->device_id))===0){
+            $this->message='You must enter device!';
+            return false;
+        }
+        return true;
+    }
+
+    private function malfunctionControll()
+    {
+        if(strlen(trim($this->workorder->malfunction))===0){
+            $this->message='You must enter malfunction!';
+            return false;
+        }
+        if(strlen($this->workorder->malfunction)>255){
+            $this->message='Malfunction description can not be longer then 255 characters!';
+            return false;
+        }
+        return true;
+    }
+
+    private function createQueryID()
+    {
+        $query_id=substr(md5(microtime()), 0, 6);
+        $_POST['query_id']=$query_id;
+        return true;
     }
 }

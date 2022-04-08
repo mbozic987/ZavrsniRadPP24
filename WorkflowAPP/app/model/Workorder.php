@@ -92,6 +92,28 @@ class Workorder
         return $exp->fetch();
     }
 
+    public static function create($parameters)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            insert into workorder (workorder_id,employee_frontdesk,device,
+            malfunction,repair_status,query_id)
+            values (:workorder_id, :frontdesk_id, :device_id,
+            :malfunction, :repair_status_id, :query_id)
+        
+        ');
+        $exp->execute([
+            'workorder_id'=>$parameters['workorder_id'],
+            'frontdesk_id'=>$parameters['frontdesk_id'],
+            'device_id'=>$parameters['device_id'],
+            'malfunction'=>$parameters['malfunction'],
+            'repair_status_id'=>$parameters['repair_status_id'],
+            'query_id'=>$parameters['query_id']
+        ]);
+
+    }
+
     public static function delete($workorder_id)
     {
         $conn = DB::getInstance();

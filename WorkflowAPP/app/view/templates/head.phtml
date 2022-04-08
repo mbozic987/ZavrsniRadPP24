@@ -4,3 +4,4 @@
 <title><?=App::config('titleApp')?></title>
 <link rel="stylesheet" href="<?=App::config('url')?>public/css/foundation.css">
 <link rel="stylesheet" href="<?=App::config('url')?>public/css/app.css">
+<?php if(isset($css)) echo $css;?>
