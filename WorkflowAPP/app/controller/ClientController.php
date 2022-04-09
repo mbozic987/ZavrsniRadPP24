@@ -114,6 +114,12 @@ class ClientController extends AdminController
         header('location:' . App::config('url') . 'client/index');
     }
 
+    public function searchClient($cond)
+    {
+        header('Content-type: application/json');
+        echo json_encode(Client::clientSearch($cond));
+    }
+
     private function prepareData()
     {
         $this->client=(object)$_POST;

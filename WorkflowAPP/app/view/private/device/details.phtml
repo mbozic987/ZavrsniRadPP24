@@ -9,20 +9,9 @@
                         <h4>Device details</h4>
                     </legend>
 
-                    <label for="fistname">First name</label>
-                        <input type="text" name="firstname" id="firstname" value="<?=$entity->firstname?>">
-                    
-                    <label for="lastname">Last name</label>
-                            <input type="text" name="lastname" id="lastname" value="<?=$entity->lastname?>">
+                    <input type="text" id="clientSearch" placeholder="Search client">
+                    <p id="clientLabel"><?=$clientLabel; ?></p>
 
-                    <label for="company">Company</label>
-                        <input type="text" name="company" id="company" value="<?=$entity->company?>">
-
-                    <label for="phonenum">Phone number</label>
-                        <input type="text" name="phonenum" id="phonenum" value="<?=$entity->phonenum?>">
-
-                    <label for="email">E-mail</label>
-                        <input type="email" name="email" id="email" value="<?=$entity->email?>">
 
                     <label for="manufacturer">Manufacturer</label>
                         <input type="text" name="manufacturer" id="manufacturer" value="<?=$entity->manufacturer?>">
@@ -52,3 +41,6 @@
         <div class="large-3 medium-2 cell"></div>
     </div>
 </div>
+<pre>
+    <?php print_r($entity);?>
+</pre>

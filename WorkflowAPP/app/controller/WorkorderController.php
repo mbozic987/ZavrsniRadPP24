@@ -34,6 +34,7 @@ class WorkorderController extends AuthorizationController
         $this->workorder->query_id='';
         $this->workorder->repair_date='';
     }
+
     public function index()
     {
         if(!isset($_GET['page'])){
@@ -130,7 +131,7 @@ class WorkorderController extends AuthorizationController
 
     private function clientControll()
     {
-        if(strlen(trim($this->workorder->client_id))===0){
+        if(trim($this->workorder->client_id)==0){
             $this->message='You must enter client!';
             return false;
         }
@@ -139,7 +140,7 @@ class WorkorderController extends AuthorizationController
 
     private function deviceControll()
     {
-        if(strlen(trim($this->workorder->device_id))===0){
+        if(strlen(trim($this->workorder->device_id))==0){
             $this->message='You must enter device!';
             return false;
         }
@@ -148,7 +149,7 @@ class WorkorderController extends AuthorizationController
 
     private function malfunctionControll()
     {
-        if(strlen(trim($this->workorder->malfunction))===0){
+        if(trim($this->workorder->malfunction)===0){
             $this->message='You must enter malfunction!';
             return false;
         }

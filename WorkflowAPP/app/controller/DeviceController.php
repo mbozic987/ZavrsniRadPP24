@@ -13,11 +13,7 @@ class DeviceController extends AdminController
         parent::__construct();
         $this->device = new stdClass();
         $this->device->device_id=0;
-        $this->device->firstname='';
-        $this->device->lastname='';
-        $this->device->company='';
-        $this->device->phonenum='';
-        $this->device->email='';
+        $this->device->client=0;
         $this->device->manufacturer='';
         $this->device->model='';
         $this->device->serialnum='';
@@ -57,17 +53,34 @@ class DeviceController extends AdminController
 
     public function details($device_id=0)
     {
+        if($this->device->client!=0){
+            $this->device = Device::readOne($device_id);
+            $cl = Client::readOne($this->device->client);
+            $clientLabel = $cl->firstname . ' ' . $cl->lastname . ' ' . $cl->company;
+        }else{
+            $clientLabel = '<strong>Client is not selected!</strong>';
+        }
         if($device_id===0){
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>$this->device,
                 'message'=>'',
-                'action'=>'Add new device   >>>'
+                'clientLabel'=>$clientLabel,
+                'action'=>'Add new device   >>>',
+                'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
+                'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+                <script>let device=' . $this->device->device_id . ';</script>
+                <script src="' . App::config('url') . 'public/js/deviceDetails.js"></script>'
             ]);
         }else{
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>Device::readOne($device_id),
                 'message'=>'',
-                'action'=>'Edit existing device   >>>'
+                'clientLabel'=>$clientLabel,
+                'action'=>'Edit existing device   >>>',
+                'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
+                'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+                <script>let device=' . $this->device->device_id . ';</script>
+                <script src="' . App::config('url') . 'public/js/deviceDetails.js"></script>'
             ]);
         }
     }
@@ -77,11 +90,7 @@ class DeviceController extends AdminController
         $this->prepareData();
 
         if($_POST['device_id']==0){
-            if($this->firstnameControll()
-            && $this->lastnameControll()
-            && $this->companyControll()
-            && $this->phonenumControll()
-            && $this->emailControll()
+            if($this->clientControll()
             && $this->manufacturerControll()
             && $this->modelControll()
             && $this->serialnumControll()){
@@ -96,11 +105,7 @@ class DeviceController extends AdminController
                 return;
             }
         }else{
-            if($this->firstnameControll()
-            && $this->lastnameControll()
-            && $this->companyControll()
-            && $this->phonenumControll()
-            && $this->emailControll()
+            if($this->clientControll()
             && $this->manufacturerControll()
             && $this->modelControll()
             && $this->serialnumControll()){
@@ -129,58 +134,11 @@ class DeviceController extends AdminController
     }
 
     //input controlls
-    private function firstnameControll()
+    
+    private function clientControll()
     {
-        if(strlen(trim($this->device->firstname))===0){
-            $this->message='You must enter first name!';
-            return false;
-        }
-        if(strlen($this->device->firstname)>50){
-            $this->message='First name can not be longer then 50 characters!';
-            return false;
-        }
-        return true;
-    }
-
-    private function lastnameControll()
-    {
-        if(strlen(trim($this->device->lastname))===0){
-            $this->message='You must enter last name!';
-            return false;
-        }
-        if(strlen($this->device->lastname)>50){
-            $this->message='Last name can not be longer then 50 characters!';
-            return false;
-        }
-        return true;
-    }
-
-    private function companyControll()
-    {
-        if(strlen($this->device->lastname)>50){
-            $this->message='Company name can not be longer then 50 characters!';
-            return false;
-        }
-        return true;
-    }
-
-    private function phonenumControll()
-    {
-        if(strlen(trim($this->device->phonenum))===0){
-            $this->message='You must enter phone number!';
-            return false;
-        }
-        if(strlen($this->device->phonenum)>20){
-            $this->message='Phone number can not be longer then 20 characters!';
-            return false;
-        }
-        return true;
-    }
-
-    private function emailControll()
-    {
-        if(strlen($this->device->email)>50){
-            $this->message='E-mail adress can not be longer then 50 characters!';
+        if($this->device->client_id==0){
+            $this->message='You must choose a client!';
             return false;
         }
         return true;

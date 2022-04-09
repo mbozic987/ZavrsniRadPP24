@@ -4,6 +4,23 @@ class Client
 {
     //CRUD
 
+    public static function clientSearch($cond)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            select client_id, firstname, lastname, company
+            from client
+            where concat(firstname, \' \', lastname, \' \', ifnull(company,\'\')) like :cond
+            order by 3,4 limit 20;
+
+        ');
+        $cond = '%' . $cond . '%';
+        $exp->bindParam('cond',$cond);
+        $exp->execute();
+        return $exp->fetchAll();
+    }
+
     public static function clientTotal($cond)
     {
         $conn = DB::getInstance();
@@ -56,7 +73,8 @@ class Client
         $conn = DB::getInstance();
         $exp = $conn->prepare('
 
-        select * from client where client_id=:client_id;
+        select * from client 
+        where client_id=:client_id;
 
         ');
         $exp->execute(['client_id'=>$client_id]);
