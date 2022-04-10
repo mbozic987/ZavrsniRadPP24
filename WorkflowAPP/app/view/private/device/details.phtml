@@ -22,7 +22,8 @@
                     <label for="serialnum">Serial number</label>
                         <input type="text" name="serialnum" id="serialnum" value="<?=$entity->serialnum?>">
 
-                        <input type="hidden" name="device_id" value="<?=$entity->device_id?>">
+                        <input type="hidden" id="client" name="client" value="<?=$entity->client?>">
+                        <input type="hidden" id ="device_id" name="device_id" value="<?=$entity->device_id?>">
 
                     <hr/>
                     <div class="grid-x grid-padding-x">
@@ -41,6 +42,21 @@
         <div class="large-3 medium-2 cell"></div>
     </div>
 </div>
-<pre>
-    <?php print_r($entity);?>
-</pre>
+<div class="large reveal" data-reveal-id="details" data-reveal>
+      
+    <hr/>
+    <div style="text-align:center">
+    <a href="<?=App::config('url')?>workorder/details/<?=$e->workorder_id?>">
+        <i title="Edit work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-pen-square"></i>
+        </a>
+        <a onclick="return confirm('Are you sure you want to delete work order No. <?=$e->workorder_id?>?')" 
+        href="<?=App::config('url')?>workorder/delete/<?=$e->workorder_id?>">
+        <i style="color:red; margin-left:20px" title="Delete work order No. <?=$e->workorder_id?>"
+            class="fas fa-2x fa-minus-square"></i>
+        </a>
+    </div>
+    <hr/>
+    <button class="close-button" data-close aria-label="Close reveal" type="button">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>

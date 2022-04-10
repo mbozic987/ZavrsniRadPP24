@@ -9,20 +9,20 @@
                     </legend>
                         <p><strong>Client</strong></p>
                         <input type="text" id="searchClient" placeholder="Search client">
-                        <p><?=$entity->firstname ?> <?=$entity->lastname ?> <?=$entity->company ?></p>
-                    <hr/>
+                        <p id="clientLabel"><strong><?=$clientLabel; ?></strong></p>
+                        <hr/>
                         <p><strong>Device</strong></p>
                         <input type="text" id="searchDevice" placeholder="Search device">
-                        <p><?=$entity->manufacturer ?> <?=$entity->model ?> <?=$entity->serialnum ?></p>
-                    <hr/>
+                        <p id="deviceLabel"><strong><?=$deviceLabel; ?></strong></p>
+                        <hr/>
                         <p><strong>Workshop</strong></p>
                         <label for="malfunction">Malfunction</label>
                         <textarea rows="5" cols="80" name="malfunction" id="malfunction">
                         </textarea>
 
-                        <input type="hidden" name="frontdesk_id" id="frontdesk_id" value="<?php echo ($entity->workorder_id!=0) ? $entity->frontdesk_id : $_SESSION['authorized']->employee_id ; ?>">
-                        <input type="hidden" name="client_id" id="client_id" value="<?=$entity->client_id?>">
-                        <input type="hidden" name="device_id" id="device_id" value="<?=$entity->device_id?>">
+                        <input type="hidden" name="frontdesk_id" id="frontdesk" value="<?php echo ($entity->workorder_id!=0) ? $entity->frontdesk_id : $_SESSION['authorized']->employee_id ; ?>">
+                        <input type="hidden" name="client" id="client" value="<?=$entity->client_id?>">
+                        <input type="hidden" name="device" id="device" value="<?=$entity->device_id?>">
                         <input type="hidden" name="workorder_id" id="workorder_id" value="<?=$entity->workorder_id?>">
                         
                     <div class="grid-x grid-padding-x">

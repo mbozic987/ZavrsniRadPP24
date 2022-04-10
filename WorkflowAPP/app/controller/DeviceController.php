@@ -53,14 +53,8 @@ class DeviceController extends AdminController
 
     public function details($device_id=0)
     {
-        if($this->device->client!=0){
-            $this->device = Device::readOne($device_id);
-            $cl = Client::readOne($this->device->client);
-            $clientLabel = $cl->firstname . ' ' . $cl->lastname . ' ' . $cl->company;
-        }else{
-            $clientLabel = '<strong>Client is not selected!</strong>';
-        }
         if($device_id===0){
+            $clientLabel = '<strong>Client is not selected!</strong>';
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>$this->device,
                 'message'=>'',
@@ -68,18 +62,19 @@ class DeviceController extends AdminController
                 'action'=>'Add new device   >>>',
                 'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
                 'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-                <script>let device=' . $this->device->device_id . ';</script>
                 <script src="' . App::config('url') . 'public/js/deviceDetails.js"></script>'
             ]);
         }else{
+            $device = Device::readOne($device_id);
+            $cl = Client::readOne($device->client);
+            $clientLabel = $cl->firstname . ' ' . $cl->lastname . ' ' . $cl->company;
             $this->view->render($this->viewDir . 'details',[
-                'entity'=>Device::readOne($device_id),
+                'entity'=>$device,
                 'message'=>'',
                 'clientLabel'=>$clientLabel,
                 'action'=>'Edit existing device   >>>',
                 'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
                 'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-                <script>let device=' . $this->device->device_id . ';</script>
                 <script src="' . App::config('url') . 'public/js/deviceDetails.js"></script>'
             ]);
         }
@@ -137,7 +132,7 @@ class DeviceController extends AdminController
     
     private function clientControll()
     {
-        if($this->device->client_id==0){
+        if($this->device->client==0){
             $this->message='You must choose a client!';
             return false;
         }

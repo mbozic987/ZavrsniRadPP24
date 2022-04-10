@@ -70,16 +70,32 @@ class WorkorderController extends AuthorizationController
     public function details($workorder_id=0)
     {
         if($workorder_id===0){
+            $clientLabel = '<strong>Client is not selected!</strong>';
+            $deviceLabel = '<strong>Device is not selected!</strong>';
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>$this->workorder,
                 'message'=>'',
-                'action'=>'Add new work order   >>>'
+                'clientLabel'=>$clientLabel,
+                'deviceLabel'=>$deviceLabel,
+                'action'=>'Add new work order   >>>',
+                'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
+                'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+                <script src="' . App::config('url') . 'public/js/workorderDetails.js"></script>'
             ]);
         }else{
+            $device = Device::readOne($this->workorder->device_id);
+            $cl = Client::readOne($this->workorder->client_id);
+            $clientLabel = $cl->firstname . ' ' . $cl->lastname . ' ' . $cl->company;
+            $deviceLabel = $device->manufacturer . ' ' . $device->model . ' ' . $device->serialnum;
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>Workorder::readOne($workorder_id),
                 'message'=>'',
-                'action'=>'Edit existing work order   >>>'
+                'clientLabel'=>$clientLabel,
+                'deviceLabel'=>$deviceLabel,
+                'action'=>'Edit existing work order   >>>',
+                'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
+                'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+                <script src="' . App::config('url') . 'public/js/workorderDetails.js"></script>'
             ]);
         }
     }
