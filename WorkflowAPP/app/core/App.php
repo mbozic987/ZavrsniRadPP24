@@ -24,19 +24,30 @@ class App
             $method = $part[2];
         }
 
-        $parameter=null;
+        $parameter1=null;
         if(!isset($part[3]) || $part[3]===''){
-            $parameter = null;
+            $parameter1 = null;
         }else{
-            $parameter = $part[3];
+            $parameter1 = $part[3];
+        }
+
+        $parameter2=null;
+        if(!isset($part[4]) || $part[4]===''){
+            $parameter2 = null;
+        }else{
+            $parameter2 = $part[4];
         }
 
         if(class_exists($class) && method_exists($class,$method)){
             $instance = new $class();
-            if($parameter==null){
+            if($parameter1==null){
                 $instance->$method();
             }else{
-                $instance->$method($parameter);
+                if($parameter2==null){
+                    $instance->$method($parameter1);
+                }else{
+                    $instance->$method($parameter1,$parameter2);
+                }  
             }
             
         }else{
