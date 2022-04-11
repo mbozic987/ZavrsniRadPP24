@@ -7,6 +7,7 @@ class DeviceController extends AdminController
 
     private $message;
     private $device;
+    private $clientLabel;
 
     public function __construct()
     {
@@ -14,6 +15,9 @@ class DeviceController extends AdminController
         $this->device = new stdClass();
         $this->device->device_id=0;
         $this->device->client=0;
+        $this->device->firstname='';
+        $this->device->lastname='';
+        $this->device->company='';
         $this->device->manufacturer='';
         $this->device->model='';
         $this->device->serialnum='';
@@ -52,9 +56,9 @@ class DeviceController extends AdminController
     } 
 
     public function details($device_id=0)
-    {
+    {   
         if($device_id===0){
-            $clientLabel = '<strong>Client is not selected!</strong>';
+            $clientLabel = 'Client is not selected!';
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>$this->device,
                 'message'=>'',
@@ -65,11 +69,10 @@ class DeviceController extends AdminController
                 <script src="' . App::config('url') . 'public/js/deviceDetails.js"></script>'
             ]);
         }else{
-            $device = Device::readOne($device_id);
-            $cl = Client::readOne($device->client);
-            $clientLabel = $cl->firstname . ' ' . $cl->lastname . ' ' . $cl->company;
+            $this->device = Device::readOne($device_id);
+            $clientLabel = $this->device->firstname . ' ' . $this->device->lastname . ' ' . $this->device->company;
             $this->view->render($this->viewDir . 'details',[
-                'entity'=>$device,
+                'entity'=>$this->device,
                 'message'=>'',
                 'clientLabel'=>$clientLabel,
                 'action'=>'Edit existing device   >>>',
@@ -95,6 +98,7 @@ class DeviceController extends AdminController
                 $this->view->render($this->viewDir . 'details',[
                     'entity'=>$this->device,
                     'message'=>$this->message,
+                    'clientLabel'=>$this->clientLabel,
                     'action'=>'Add new device   >>>'
                 ]);
                 return;
@@ -109,6 +113,7 @@ class DeviceController extends AdminController
                 $this->view->render($this->viewDir . 'details',[
                     'entity'=>$this->device,
                     'message'=>$this->message,
+                    'clientLabel'=>$this->clientLabel,
                     'action'=>'Edit existing device   >>>'
                 ]);
                 return;
@@ -134,6 +139,7 @@ class DeviceController extends AdminController
     {
         if($this->device->client==0){
             $this->message='You must choose a client!';
+            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
             return false;
         }
         return true;
@@ -143,10 +149,12 @@ class DeviceController extends AdminController
     {
         if(strlen(trim($this->device->manufacturer))===0){
             $this->message='You must enter manufacturer of your device!';
+            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
             return false;
         }
         if(strlen($this->device->manufacturer)>50){
             $this->message='Manufacturer name can not be longer then 30 characters!';
+            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
             return false;
         }
         return true;
@@ -156,10 +164,12 @@ class DeviceController extends AdminController
     {
         if(strlen(trim($this->device->model))===0){
             $this->message='You must enter model of your device!';
+            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
             return false;
         }
         if(strlen($this->device->model)>30){
             $this->message='Model can not be longer then 30 characters!';
+            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
             return false;
         }
         return true;
@@ -169,6 +179,7 @@ class DeviceController extends AdminController
     {
         if(strlen($this->device->serialnum)>20){
             $this->message='Serial number can not be longer then 50 characters!';
+            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
             return false;
         }
         return true;

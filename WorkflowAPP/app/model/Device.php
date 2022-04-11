@@ -62,8 +62,11 @@ class Device
         $conn = DB::getInstance();
         $exp = $conn->prepare('
 
-            select * from device
-            where device_id=:device_id; 
+        select a.device_id, b.client_id as client, b.firstname, b.lastname, b.company, 
+        a.manufacturer, a.model, a.serialnum
+        from device a 
+        inner join client b on a.client = b.client_id
+        where device_id=:device_id
 
         ');
         $exp->execute(['device_id'=>$device_id]);

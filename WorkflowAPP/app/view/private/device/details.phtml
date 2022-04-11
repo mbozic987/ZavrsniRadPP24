@@ -23,6 +23,9 @@
                         <input type="text" name="serialnum" id="serialnum" value="<?=$entity->serialnum?>">
 
                         <input type="hidden" id="client" name="client" value="<?=$entity->client?>">
+                        <input type="hidden" id="firstname" name="firstname" value="<?=$entity->firstname?>">
+                        <input type="hidden" id="lastname" name="lastname" value="<?=$entity->lastname?>">
+                        <input type="hidden" id="company" name="company" value="<?=$entity->company?>">
                         <input type="hidden" id ="device_id" name="device_id" value="<?=$entity->device_id?>">
 
                     <hr/>
@@ -60,3 +63,6 @@
     <span aria-hidden="true">&times;</span>
     </button>
 </div>
+<pre>
+    <?php print_r($entity);?>
+</pre>

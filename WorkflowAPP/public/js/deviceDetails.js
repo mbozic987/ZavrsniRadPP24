@@ -14,6 +14,9 @@ $( '#clientSearch' ).autocomplete({
     select:function(event,ui){
        console.log(ui.item);
        $('#client').val(ui.item.client_id);
+       $('#firstname').val(ui.item.firstname);
+       $('#lastname').val(ui.item.lastname);
+       $('#company').val([ui.item.company].join(''));
        $('#clientLabel').html(ui.item.firstname + ' ' + ui.item.lastname + ' ' + [ui.item.company].join(''));
     }
 }).autocomplete( 'instance' )._renderItem = function( ul, item ) {
