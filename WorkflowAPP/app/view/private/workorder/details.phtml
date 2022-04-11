@@ -8,11 +8,11 @@
                         <h4>Work order details</h4>
                     </legend>
                         <p><strong>Client</strong></p>
-                        <input type="text" id="searchClient" placeholder="Search client">
+                        <input type="text" id="clientSearch" placeholder="Search client">
                         <p id="clientLabel"><strong><?=$clientLabel; ?></strong></p>
                         <hr/>
                         <p><strong>Device</strong></p>
-                        <input type="text" id="searchDevice" placeholder="Search device">
+                        <input type="text" id="deviceSearch" placeholder="Search device">
                         <p id="deviceLabel"><strong><?=$deviceLabel; ?></strong></p>
                         <hr/>
                         <p><strong>Workshop</strong></p>
@@ -22,7 +22,13 @@
 
                         <input type="hidden" name="frontdesk_id" id="frontdesk" value="<?php echo ($entity->workorder_id!=0) ? $entity->frontdesk_id : $_SESSION['authorized']->employee_id ; ?>">
                         <input type="hidden" name="client" id="client" value="<?=$entity->client_id?>">
+                        <input type="hidden" name="firstname" id="firstname" value="<?=$entity->client_id?>">
+                        <input type="hidden" name="lastname" id="lastname" value="<?=$entity->client_id?>">
+                        <input type="hidden" name="company" id="company" value="<?=$entity->client_id?>">
                         <input type="hidden" name="device" id="device" value="<?=$entity->device_id?>">
+                        <input type="hidden" name="manufacturer" id="manufacturer" value="<?=$entity->device_id?>">
+                        <input type="hidden" name="model" id="model" value="<?=$entity->device_id?>">
+                        <input type="hidden" name="serialnum" id="serialnum" value="<?=$entity->device_id?>">
                         <input type="hidden" name="workorder_id" id="workorder_id" value="<?=$entity->workorder_id?>">
                         
                     <div class="grid-x grid-padding-x">
