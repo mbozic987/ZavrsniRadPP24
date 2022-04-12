@@ -93,6 +93,19 @@ class Client
         ');
         $exp->execute($parameters);
     }
+
+    public static function addclient()
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+
+        insert into client (firstname,lastname,company,phonenum,email)
+        values (:firstname,:lastname,:company,:phonenum,:email);
+
+        ');
+        $exp->execute($_POST);
+        return $conn->lastInsertId();
+    }
     
 
     //U - Update

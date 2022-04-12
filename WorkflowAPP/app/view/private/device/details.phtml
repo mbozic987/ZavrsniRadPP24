@@ -45,24 +45,21 @@
         <div class="large-3 medium-2 cell"></div>
     </div>
 </div>
-<div class="large reveal" data-reveal-id="details" data-reveal>
-      
+<div class="large reveal" data-reveal-id="details" id="details" data-reveal>
+    
+    <h4>Client details</h4>
+
+    <input type="text" id="firstname" placeholder="Firstname">
+
+    <input type="text" id="lastname" placeholder="Lastname">
+
+    <input type="text" id="company" placeholder="Company">
+
+    <input type="text" id="phonenum" placeholder="Phone number">
+
+    <input type="text" id="email" placeholder="E-mail">
+
     <hr/>
-    <div style="text-align:center">
-    <a href="<?=App::config('url')?>workorder/details/<?=$e->workorder_id?>">
-        <i title="Edit work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-pen-square"></i>
-        </a>
-        <a onclick="return confirm('Are you sure you want to delete work order No. <?=$e->workorder_id?>?')" 
-        href="<?=App::config('url')?>workorder/delete/<?=$e->workorder_id?>">
-        <i style="color:red; margin-left:20px" title="Delete work order No. <?=$e->workorder_id?>"
-            class="fas fa-2x fa-minus-square"></i>
-        </a>
-    </div>
-    <hr/>
-    <button class="close-button" data-close aria-label="Close reveal" type="button">
-    <span aria-hidden="true">&times;</span>
-    </button>
+    <a href="#" id="addnewclient">Add client   >>></a>
+
 </div>
-<pre>
-    <?php print_r($entity);?>
-</pre>

@@ -72,13 +72,13 @@ class WorkorderController extends AuthorizationController
     public function details($workorder_id=0)
     {
         if($workorder_id===0){
-            $clientLabel = '<strong>Client is not selected!</strong>';
-            $deviceLabel = '<strong>Device is not selected!</strong>';
+            $this->clientLabel = '<strong>Client is not selected!</strong>';
+            $this->deviceLabel = '<strong>Device is not selected!</strong>';
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>$this->workorder,
                 'message'=>'',
-                'clientLabel'=>$clientLabel,
-                'deviceLabel'=>$deviceLabel,
+                'clientLabel'=>$this->clientLabel,
+                'deviceLabel'=>$this->deviceLabel,
                 'action'=>'Add new work order   >>>',
                 'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
                 'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -86,13 +86,13 @@ class WorkorderController extends AuthorizationController
             ]);
         }else{
             $this->workorder = Workorder::readOne($workorder_id);
-            $clientLabel = $this->workorder->firstname . ' ' . $this->workorder->lastname . ' ' . $this->workorder->company;
-            $deviceLabel = $this->workorder->manufacturer . ' ' . $this->workorder->model . ' ' . $this->workorder->serialnum;
+            $this->clientLabel = $this->workorder->firstname . ' ' . $this->workorder->lastname . ' ' . $this->workorder->company;
+            $this->deviceLabel = $this->workorder->manufacturer . ' ' . $this->workorder->model . ' ' . $this->workorder->serialnum;
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>$this->workorder,
                 'message'=>'',
-                'clientLabel'=>$clientLabel,
-                'deviceLabel'=>$deviceLabel,
+                'clientLabel'=>$this->clientLabel,
+                'deviceLabel'=>$this->deviceLabel,
                 'action'=>'Edit existing work order   >>>',
                 'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
                 'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -116,8 +116,8 @@ class WorkorderController extends AuthorizationController
                 $this->view->render($this->viewDir . 'details',[
                     'entity'=>$this->workorder,
                     'message'=>$this->message,
-                    'clientLabel'=>$clientLabel,
-                    'deviceLabel'=>$deviceLabel,
+                    'clientLabel'=>$this->clientLabel,
+                    'deviceLabel'=>$this->deviceLabel,
                     'action'=>'Add new work order   >>>',
                     'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
                     'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -135,8 +135,8 @@ class WorkorderController extends AuthorizationController
                 $this->view->render($this->viewDir . 'details',[
                     'entity'=>$this->workorder,
                     'message'=>$this->message,
-                    'clientLabel'=>$clientLabel,
-                    'deviceLabel'=>$deviceLabel,
+                    'clientLabel'=>$this->clientLabel,
+                    'deviceLabel'=>$this->deviceLabel,
                     'action'=>'Edit work order   >>>',
                     'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
                     'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -163,7 +163,7 @@ class WorkorderController extends AuthorizationController
     {
         if(trim($this->workorder->client)==0){
             $this->message='You must enter client!';
-            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
+            $this->clientLabel=$this->workorder->firstname . ' ' . $this->workorder->lastname . ' ' . $this->workorder->company;
             $this->deviceLabel=$_POST['manufacturer'] . ' ' . $_POST['model'] . ' ' . $_POST['serialnum'];
             return false;
         }
@@ -174,7 +174,7 @@ class WorkorderController extends AuthorizationController
     {
         if(trim($this->workorder->device)==0){
             $this->message='You must enter device!';
-            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
+            $this->clientLabel=$this->workorder->firstname . ' ' . $this->workorder->lastname . ' ' . $this->workorder->company;
             $this->deviceLabel=$_POST['manufacturer'] . ' ' . $_POST['model'] . ' ' . $_POST['serialnum'];
             return false;
         }

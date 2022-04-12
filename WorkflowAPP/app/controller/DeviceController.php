@@ -151,7 +151,7 @@ class DeviceController extends AdminController
     {
         if($this->device->client==0){
             $this->message='You must choose a client!';
-            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
+            $this->clientLabel='Client is not selected!';
             return false;
         }
         return true;

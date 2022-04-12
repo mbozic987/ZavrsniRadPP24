@@ -20,6 +20,11 @@ class ClientController extends AdminController
         $this->client->email='';
     }
 
+    public function addclient()
+    {
+        echo Client::addclient();
+    }
+
     public function index()
     {
         if(!isset($_GET['page'])){

@@ -5,12 +5,15 @@ $( '#clientSearch' ).autocomplete({
        $.ajax({
            url: '/Client/searchClient/' + req.term ,
            success:function(response){
-               res(response);
-               console.log(response);
-        }
+               if(response.length===0){
+                    $('#details').foundation('open');
+               }else{
+                res(response);
+               }
+            }
        }); 
     },
-    minLength: 3,
+    minLength: 2,
     select:function(event,ui){
        console.log(ui.item);
        $('#client').val(ui.item.client_id);
@@ -19,24 +22,29 @@ $( '#clientSearch' ).autocomplete({
        $('#company').val([ui.item.company].join(''));
        $('#clientLabel').html(ui.item.firstname + ' ' + ui.item.lastname + ' ' + [ui.item.company].join(''));
     }
-}).autocomplete( 'instance' )._renderItem = function( ul, item ) {
+}).autocomplete( 'instance' )._renderItem = function( ul, item ){
     return $( '<li>' )
       .append( '<div>' + item.firstname + ' ' + item.lastname + ' ' + [item.company].join('') + '</div>')
       .appendTo( ul );
   };
 
-$('#clientSearch').on('keypress', function (e) {
-    if(e.which !== 13){
-        return;
-    }
-    let client = $('#clientSearch').val().split(' ');
-      if(client.length==0){
-          return false;
-      }
-      $('#addClient').foundation('reveal','open');
-      
-
-      
-      console.log($('#clientSearch').val());
+$('#addnewclient').click(function(){
+    $.ajax({
+        type: "POST",
+        url:'/Client/addclient',
+        data: {
+            firstname: $('#firstname').val(),
+            lastname: $('#lastname').val(),
+            company: $('#company').val(),
+            phonenum: $('#phonenum').val(),
+            email: $('#email').val()
+        },
+        success:function(response){
+            console.log(response);
+            $('#client').val(response);
+            $('#clientLabel').html('neznam kako složiti ime prezime i kompaniju');
+            $('#details').foundation('close');
+        }
+    });
     return false;
 });
