@@ -33,16 +33,19 @@ $('#addnewclient').click(function(){
         type: "POST",
         url:'/Client/addclient',
         data: {
-            firstname: $('#firstname').val(),
-            lastname: $('#lastname').val(),
-            company: $('#company').val(),
-            phonenum: $('#phonenum').val(),
-            email: $('#email').val()
+            firstname: $('#dmfirstname').val(),
+            lastname: $('#dmlastname').val(),
+            company: $('#dmcompany').val(),
+            phonenum: $('#dmphonenum').val(),
+            email: $('#dmemail').val()
         },
         success:function(response){
             console.log(response);
             $('#client').val(response);
-            $('#clientLabel').html('neznam kako složiti ime prezime i kompaniju');
+            $('#clientLabel').html($('#dmfirstname').val() + ' ' + $('#dmlastname').val() + ' ' + $('#dmcompany').val());
+            $('#firstname').html($('#dmfirstname').val());
+            $('#lastname').html($('#dmlastname').val());
+            $('#company').html($('#dmcompany').val());
             $('#details').foundation('close');
         }
     });

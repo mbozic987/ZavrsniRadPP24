@@ -49,17 +49,28 @@
     
     <h4>Client details</h4>
 
-    <input type="text" id="firstname" placeholder="Firstname">
+    <label for="dmfirstname">First name</label>
+        <input type="text" id="dmfirstname">
+    
+    <label for="dmlastname">Last name</label>
+            <input type="text" id="dmlastname">
 
-    <input type="text" id="lastname" placeholder="Lastname">
+    <label for="dmcompany">Company</label>
+        <input type="text" id="dmcompany">
 
-    <input type="text" id="company" placeholder="Company">
+    <label for="dmphonenum">Phone number</label>
+        <input type="text" id="dmphonenum">
 
-    <input type="text" id="phonenum" placeholder="Phone number">
-
-    <input type="text" id="email" placeholder="E-mail">
+    <label for="dmemail">E-mail</label>
+        <input type="email" id="dmemail">
 
     <hr/>
-    <a href="#" id="addnewclient">Add client   >>></a>
-
+    <div class="grid-x grid-padding-x">
+        <div class="large-4 medium-4 small-4">
+            <a class="alert button expanded" href="<?=App::config('url')?>device/index"><<<   Abort</a>
+        </div>
+        <div class="large-8 medium-8 small-8">
+            <a href="#" class="button expanded" id="addnewclient">Add client   >>></a>
+        </div>
+    </div>
 </div>
