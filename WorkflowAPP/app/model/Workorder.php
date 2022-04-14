@@ -113,6 +113,24 @@ class Workorder
 
     }
 
+    public static function update($parameters)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            update workorder set 
+            employee_frontdesk=:employee_frontdesk,
+            device=:device,
+            malfunction=:malfunction
+        
+        ');
+        $exp->execute([
+            'employee_frontdesk'=>$parameters['employee_frontdesk'],
+            'device'=>$parameters['device'],
+            'malfunction'=>$parameters['malfunction']
+        ]);
+    }
+
     public static function delete($workorder_id)
     {
         $conn = DB::getInstance();
