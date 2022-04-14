@@ -17,19 +17,21 @@
                         <hr/>
                         <p><strong>Workshop</strong></p>
                         <label for="malfunction">Malfunction</label>
-                        <textarea rows="5" cols="80" name="malfunction" id="malfunction"><?=$entity->malfunction ?>
+                        <textarea rows="5" name="malfunction" id="malfunction"><?=$entity->malfunction ?>
                         </textarea>
 
                         <input type="hidden" name="frontdesk_id" id="frontdesk" value="<?php echo ($entity->workorder_id!=0) ? $entity->frontdesk_id : $_SESSION['authorized']->employee_id ; ?>">
                         <input type="hidden" name="client" id="client" value="<?=$entity->client_id?>">
-                        <input type="hidden" name="firstname" id="firstname" value="<?=$entity->client_id?>">
-                        <input type="hidden" name="lastname" id="lastname" value="<?=$entity->client_id?>">
-                        <input type="hidden" name="company" id="company" value="<?=$entity->client_id?>">
+                        <input type="hidden" name="firstname" id="firstname" value="<?=$entity->firstname?>">
+                        <input type="hidden" name="lastname" id="lastname" value="<?=$entity->lastname?>">
+                        <input type="hidden" name="company" id="company" value="<?=$entity->company?>">
                         <input type="hidden" name="device" id="device" value="<?=$entity->device_id?>">
-                        <input type="hidden" name="manufacturer" id="manufacturer" value="<?=$entity->device_id?>">
-                        <input type="hidden" name="model" id="model" value="<?=$entity->device_id?>">
-                        <input type="hidden" name="serialnum" id="serialnum" value="<?=$entity->device_id?>">
+                        <input type="hidden" name="manufacturer" id="manufacturer" value="<?=$entity->manufacturer?>">
+                        <input type="hidden" name="model" id="model" value="<?=$entity->model?>">
+                        <input type="hidden" name="serialnum" id="serialnum" value="<?=$entity->serialnum?>">
                         <input type="hidden" name="workorder_id" id="workorder_id" value="<?=$entity->workorder_id?>">
+                        <input type="hidden" name="query_id" id="query_id" value="<?=$entity->query_id?>">
+                        <input type="hidden" name="repair_status" id="repair_status" value="<?=$entity->repair_status?>">
                         
                     <div class="grid-x grid-padding-x">
                         <div class="large-4 medium-4 small-4">
@@ -47,8 +49,56 @@
         <div class="large-3 medium-2 cell"></div>
     </div>
 </div>
-<pre>
-    <?php print_r($entity);?>
-    <?php print_r($_SESSION);?>
-    <?php print_r($_POST);?>
-</pre>
+<div class="reveal" data-reveal-id="addclient" id="addclient" data-reveal>
+    
+    <h4>Quick add client</h4>
+
+    <label for="wmfirstname">First name</label>
+        <input type="text" id="wmfirstname">
+    
+    <label for="wmlastname">Last name</label>
+            <input type="text" id="wmlastname">
+
+    <label for="wmcompany">Company</label>
+        <input type="text" id="wmcompany">
+
+    <label for="wmphonenum">Phone number</label>
+        <input type="text" id="wmphonenum">
+
+    <label for="wmemail">E-mail</label>
+        <input type="email" id="wmemail">
+
+    <hr/>
+    <div class="grid-x grid-padding-x">
+        <div class="large-4 medium-4 small-4">
+            <a class="alert button expanded" href="<?=App::config('url')?>workorder/details"><<<   Abort</a>
+        </div>
+        <div class="large-8 medium-8 small-8">
+            <a href="#" class="button expanded" id="addnewclient">Add client   >>></a>
+        </div>
+    </div>
+</div>
+
+<div class="reveal" data-reveal-id="adddevice" id="adddevice" data-reveal>
+    
+    <h4>Quick add device</h4>
+
+    <label for="wmmanufacturer">Manufacturer</label>
+        <input type="text" id="wmmanufacturer">
+    
+    <label for="wmmodel">Model</label>
+            <input type="text" id="wmmodel">
+
+    <label for="wmserialnum">Serial number</label>
+        <input type="text" id="wmserialnum">
+
+    <hr/>
+    <div class="grid-x grid-padding-x">
+        <div class="large-4 medium-4 small-4">
+            <a class="alert button expanded" href="<?=App::config('url')?>workorder/details"><<<   Abort</a>
+        </div>
+        <div class="large-8 medium-8 small-8">
+            <a href="#" class="button expanded" id="addnewdevice">Add device   >>></a>
+        </div>
+    </div>
+</div>

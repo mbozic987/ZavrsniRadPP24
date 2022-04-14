@@ -31,9 +31,10 @@ class WorkorderController extends AuthorizationController
         $this->workorder->frontdesk_firstname='';
         $this->workorder->malfunction='';
         $this->workorder->recive_date='';
+        $this->workorder->repair_status=1;
         $this->workorder->status_name='';
         $this->workorder->work_done='';
-        $this->workorder->query_id='';
+        $this->workorder->query_id=substr(md5(microtime()), 0, 6);
         $this->workorder->repair_date='';
     }
 
@@ -72,13 +73,13 @@ class WorkorderController extends AuthorizationController
     public function details($workorder_id=0)
     {
         if($workorder_id===0){
-            $this->clientLabel = '<strong>Client is not selected!</strong>';
-            $this->deviceLabel = '<strong>Device is not selected!</strong>';
+            $clientLabel = '<strong>Client is not selected!</strong>';
+            $deviceLabel = '<strong>Device is not selected!</strong>';
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>$this->workorder,
                 'message'=>'',
-                'clientLabel'=>$this->clientLabel,
-                'deviceLabel'=>$this->deviceLabel,
+                'clientLabel'=>$clientLabel,
+                'deviceLabel'=>$deviceLabel,
                 'action'=>'Add new work order   >>>',
                 'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
                 'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -86,13 +87,13 @@ class WorkorderController extends AuthorizationController
             ]);
         }else{
             $this->workorder = Workorder::readOne($workorder_id);
-            $this->clientLabel = $this->workorder->firstname . ' ' . $this->workorder->lastname . ' ' . $this->workorder->company;
-            $this->deviceLabel = $this->workorder->manufacturer . ' ' . $this->workorder->model . ' ' . $this->workorder->serialnum;
+            $clientLabel = $this->workorder->firstname . ' ' . $this->workorder->lastname . ' ' . $this->workorder->company;
+            $deviceLabel = $this->workorder->manufacturer . ' ' . $this->workorder->model . ' ' . $this->workorder->serialnum;
             $this->view->render($this->viewDir . 'details',[
                 'entity'=>$this->workorder,
                 'message'=>'',
-                'clientLabel'=>$this->clientLabel,
-                'deviceLabel'=>$this->deviceLabel,
+                'clientLabel'=>$clientLabel,
+                'deviceLabel'=>$deviceLabel,
                 'action'=>'Edit existing work order   >>>',
                 'css'=>'<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">',
                 'javascript'=>'<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -108,9 +109,7 @@ class WorkorderController extends AuthorizationController
         if($_POST['workorder_id']==0){
             if($this->clientControll()
             && $this->deviceControll()
-            && $this->malfunctionControll()
-            && $this->createQueryID()){
-                $_POST['status_id']=1;
+            && $this->malfunctionControll()){
                 Workorder::create($_POST);
             }else{
                 $this->view->render($this->viewDir . 'details',[
@@ -151,7 +150,7 @@ class WorkorderController extends AuthorizationController
     public function delete($workorder_id)
     {
         Workorder::delete($workorder_id);
-        $this->index();
+        header('location:' . App::config('url') . 'workorder/index');
     }
 
     private function prepareData()
@@ -163,8 +162,12 @@ class WorkorderController extends AuthorizationController
     {
         if(trim($this->workorder->client)==0){
             $this->message='You must enter client!';
-            $this->clientLabel=$this->workorder->firstname . ' ' . $this->workorder->lastname . ' ' . $this->workorder->company;
-            $this->deviceLabel=$_POST['manufacturer'] . ' ' . $_POST['model'] . ' ' . $_POST['serialnum'];
+            $this->clientLabel='Client is not selected!';
+            if($_POST['device']==0){
+                $this->deviceLabel='Device is not selected!';
+            }else{
+                $this->deviceLabel=$_POST['manufacturer'] . ' ' . $_POST['model'] . ' ' . $_POST['serialnum'];
+            }
             return false;
         }
         return true;
@@ -174,8 +177,8 @@ class WorkorderController extends AuthorizationController
     {
         if(trim($this->workorder->device)==0){
             $this->message='You must enter device!';
-            $this->clientLabel=$this->workorder->firstname . ' ' . $this->workorder->lastname . ' ' . $this->workorder->company;
-            $this->deviceLabel=$_POST['manufacturer'] . ' ' . $_POST['model'] . ' ' . $_POST['serialnum'];
+            $this->clientLabel=$_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['company'];
+            $this->deviceLabel='Device is not selected!';
             return false;
         }
         return true;
@@ -195,13 +198,6 @@ class WorkorderController extends AuthorizationController
             $this->deviceLabel=$_POST['manufacturer'] . ' ' . $_POST['model'] . ' ' . $_POST['serialnum'];
             return false;
         }
-        return true;
-    }
-
-    private function createQueryID()
-    {
-        $query_id=substr(md5(microtime()), 0, 6);
-        $_POST['query_id']=$query_id;
         return true;
     }
 }

@@ -106,6 +106,19 @@ class Device
             'serialnum'=>$parameters['serialnum']
         ]);
     }
+
+    public static function adddevice()
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+
+        insert into device (client,manufacturer,model,serialnum)
+        values (:client,:manufacturer,:model,:serialnum);
+
+        ');
+        $exp->execute($_POST);
+        return $conn->lastInsertId();
+    }
     
 
     //U - Update

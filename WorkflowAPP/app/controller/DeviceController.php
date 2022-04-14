@@ -23,6 +23,11 @@ class DeviceController extends AdminController
         $this->device->serialnum='';
     }
 
+    public function adddevice()
+    {
+        echo Device::adddevice();
+    }
+
     public function index()
     {
         if(!isset($_GET['page'])){
