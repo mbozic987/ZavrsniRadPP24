@@ -139,10 +139,10 @@ class DeviceController extends AdminController
         header('location:' . App::config('url') . 'device/index');
     }
 
-    public function searchDevice($deviceSearch)
+    public function searchDevice($deviceSearch,$client)
     {
         header('Content-type: application/json');
-        echo json_encode(Device::deviceSearch($deviceSearch));
+        echo json_encode(Device::deviceSearch($deviceSearch,$client));
     }
 
     private function prepareData()

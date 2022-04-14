@@ -55,7 +55,7 @@ class Workorder
             d.employee_id, d.firstname,e.employee_id, e.firstname,
             a.malfunction, a.receive_date, f.repair_status_id, f.status_name, a.work_done,
             a.query_id, a.repair_date
-            order by 1, 18
+            order by 1
             limit :from, :rpp;
 
         

@@ -4,7 +4,7 @@ class Device
 {
     //CRUD
 
-    public static function deviceSearch($cond)
+    public static function deviceSearch($cond,$client)
     {
         $conn = DB::getInstance();
         $exp = $conn->prepare('
@@ -12,11 +12,13 @@ class Device
             select device_id, manufacturer, model, serialnum
             from device
             where concat(manufacturer, \' \', model, \' \', ifnull(serialnum,\'\')) like :cond
+            and where client=:client
             order by 3,4 limit 20;
 
         ');
         $cond = '%' . $cond . '%';
         $exp->bindParam('cond',$cond);
+        $exp->bindParam('client',$client);
         $exp->execute();
         return $exp->fetchAll();
     }

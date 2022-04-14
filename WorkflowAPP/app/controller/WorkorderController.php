@@ -127,8 +127,7 @@ class WorkorderController extends AuthorizationController
         }else{
             if($this->clientControll()
             && $this->deviceControll()
-            && $this->malfunctionControll()
-            && $this->createQueryID()){
+            && $this->malfunctionControll()){
                 Workorder::update($_POST);
             }else{
                 $this->view->render($this->viewDir . 'details',[

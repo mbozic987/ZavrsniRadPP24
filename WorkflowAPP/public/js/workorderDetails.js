@@ -56,8 +56,9 @@ $('#addnewclient').click(function(){
 
 $( '#deviceSearch' ).autocomplete({
     source: function(req,res){
+        let client=$('#client').val();
        $.ajax({
-           url: '/Device/searchDevice/' + req.term ,
+           url: '/Device/searchDevice/' + req.term + '/' + client,
            success:function(response){
                if(response.length===0){
                     $('#adddevice').foundation('open');
