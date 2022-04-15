@@ -12,7 +12,7 @@ class Device
             select device_id, manufacturer, model, serialnum
             from device
             where concat(manufacturer, \' \', model, \' \', ifnull(serialnum,\'\')) like :cond
-            and where client=:client
+            and client=:client
             order by 3,4 limit 20;
 
         ');

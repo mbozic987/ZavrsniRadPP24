@@ -17,8 +17,7 @@
                         <hr/>
                         <p><strong>Workshop</strong></p>
                         <label for="malfunction">Malfunction</label>
-                        <textarea rows="5" name="malfunction" id="malfunction"><?=$entity->malfunction ?>
-                        </textarea>
+                        <textarea rows="5" name="malfunction" id="malfunction" value="<?=$entity->malfunction ?>"></textarea>
 
                         <input type="hidden" name="frontdesk_id" id="frontdesk" value="<?php echo ($entity->workorder_id!=0) ? $entity->frontdesk_id : $_SESSION['authorized']->employee_id ; ?>">
                         <input type="hidden" name="client" id="client" value="<?=$entity->client_id?>">

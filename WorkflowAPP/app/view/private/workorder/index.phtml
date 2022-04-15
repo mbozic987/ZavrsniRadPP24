@@ -34,7 +34,7 @@
         <td><?=$e->firstname?> <?=$e->lastname?> <?=$e->company?></td>
         <td><?=$e->manufacturer?></td>
         <td><?=$e->model?></td>
-        <td><?=$e->repairman_firstname?></td>
+        <td><?php echo ($e->repairman_id==$e->frontdesk_id) ? '' :$e->repairman_firstname;?></td>
         <td><?=$e->status_name?></td>
         <td>
           <a href="<?=App::config('url')?>workorder/details/<?=$e->workorder_id?>">
@@ -45,11 +45,11 @@
             <i style="color:red; margin-left:20px" title="Delete work order No. <?=$e->workorder_id?>"
              class="fas fa-2x fa-minus-square"></i>
           </a>
-          <a data-open="details"><i style="margin-left:20px" 
+          <a data-open="details<?=$e->workorder_id?>"><i style="margin-left:20px" 
           title="Details for work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-info"></i></a>
         </td>
       </tr>
-      <div class="large reveal" id="details" data-reveal>
+      <div class="large reveal" id="details<?=$e->workorder_id?>" data-reveal>
       <h3>Work order No. <?=$e->workorder_id?></h3>
       <hr/>
         <div class="grid-x">
@@ -109,7 +109,7 @@
                 Frontdesk: <?=$e->frontdesk_firstname?>
               </li>
               <li>
-                Repairman: <?=$e->repairman_firstname?>
+                Repairman: <?php echo ($e->repairman_id==$e->frontdesk_id) ? '' :$e->repairman_firstname;?>
               </li>
               <li>
                 Status: <?=$e->status_name?>

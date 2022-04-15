@@ -25,7 +25,7 @@ class WorkorderController extends AuthorizationController
         $this->workorder->company='';
         $this->workorder->phonemun='';
         $this->workorder->email='';
-        $this->workorder->repairman_id=0;
+        $this->workorder->repairman_id=1;
         $this->workorder->repairman_firstname='';
         $this->workorder->frontdesk_id=0;
         $this->workorder->frontdesk_firstname='';
