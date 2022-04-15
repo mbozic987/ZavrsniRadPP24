@@ -11,7 +11,7 @@ class Workorder
             from workorder a
             inner join device b on a.device = b.device_id
             inner join client c on b.client = c.client_id
-            left outer join employee d on a.employee_repairman = d.employee_id
+            inner join employee d on a.employee_repairman = d.employee_id
             inner join employee e on a.employee_frontdesk = e.employee_id
             inner join repair_status f on a.repair_status = f.repair_status_id
             where concat(b.manufacturer, \' \', b.model, \' \', c.firstname, \' \',
@@ -43,7 +43,7 @@ class Workorder
             from workorder a
             inner join device b on a.device = b.device_id
             inner join client c on b.client = c.client_id
-            left outer join employee d on a.employee_repairman = d.employee_id
+            inner join employee d on a.employee_repairman = d.employee_id
             inner join employee e on a.employee_frontdesk = e.employee_id
             inner join repair_status f on a.repair_status = f.repair_status_id
             where concat(b.manufacturer, \' \', b.model, \' \', c.firstname, \' \',
@@ -82,7 +82,7 @@ class Workorder
             from workorder a
             inner join device b on a.device = b.device_id
             inner join client c on b.client = c.client_id
-            left outer join employee d on a.employee_repairman = d.employee_id
+            inner join employee d on a.employee_repairman = d.employee_id
             inner join employee e on a.employee_frontdesk = e.employee_id
             inner join repair_status f on a.repair_status = f.repair_status_id
             where workorder_id=:workorder_id;
