@@ -60,7 +60,8 @@ insert into repair_status (repair_status_id,status_name) values
 ('1','Awaiting Diagnostics'),
 ('2','Diagnostics'),
 ('3','Awaiting Parts'),
-('4','Device Repaird');
+('4','Device Repaird'),
+('5','Repair is not recommended');
 
 insert into client (client_id,firstname,lastname,company,phonenum,email) values
 (null,'Andrija','Andrić',null,'0989879654',null),
