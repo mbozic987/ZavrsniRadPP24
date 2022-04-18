@@ -25,6 +25,22 @@ class Workorder
         return $exp->fetchColumn();
     }
 
+    public static function statusCount()
+    {
+        $veza = DB::getInstance();
+        $izraz = $veza->prepare('
+        
+            select b.status_name as name, count(a.repair_status) as y
+            from workorder a left join repair_status b
+            on a.repair_status=b.repair_status_id
+            group by b.status_name;
+        
+        
+        '); 
+        $izraz->execute();
+        return $izraz->fetchAll();
+    }
+
     public static function read($page, $cond)
     {
 

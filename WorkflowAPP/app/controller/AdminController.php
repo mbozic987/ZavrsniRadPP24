@@ -2,6 +2,10 @@
 
 abstract class AdminController extends AuthorizationController 
 {
+
+    private $viewDir = 'private' . DIRECTORY_SEPARATOR . 
+                        'admin' . DIRECTORY_SEPARATOR;
+
     public function __construct()
     {
         parent::__construct();
@@ -12,5 +16,5 @@ abstract class AdminController extends AuthorizationController
                 ]);
             exit;
         }
-    }       
+    }
 }
