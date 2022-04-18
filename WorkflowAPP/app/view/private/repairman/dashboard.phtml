@@ -1,1 +1,65 @@
-<h3>Repairman tables</h3>
+<h3 style="text-align:center">Welcome <?php echo $_SESSION['authorized']->firstname?></h3>
+<div class="grid-x grid-padding-x">
+    <div class="large-6 medium-6 cell">
+        <h4>New work orders</h4>
+        <table id="tabletemp">
+            <thead>
+                <tr>
+                <th>Client</th>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Status</th>            
+                <th>Receive date</th>            
+                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($eclaim as $e): ?>
+                <tr>
+                    <td><?=$e->firstname?> <?=$e->lastname?> <?=$e->company?></td>
+                    <td><?=$e->manufacturer?></td>
+                    <td><?=$e->model?></td>
+                    <td><?=$e->status_name?></td>
+                    <td><?=$e->receive_date?></td>
+                    <td>
+                        <a href="<?=App::config('url')?>dashboard/claim/<?=$e->workorder_id?>">
+                            <i title="Claim work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-hand-paper"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+            </tbody>
+            </table>
+    </div>
+    <div class="large-6 medium-6 cell">
+        <h4>In progress...</h4>
+        <table id="tabletemp">
+            <thead>
+                <tr>
+                <th>Client</th>
+                <th>Manufacturer</th>
+                <th>Model</th>
+                <th>Status</th>            
+                <th>Receive date</th>            
+                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($econt as $e): ?>
+                <tr>
+                    <td><?=$e->firstname?> <?=$e->lastname?> <?=$e->company?></td>
+                    <td><?=$e->manufacturer?></td>
+                    <td><?=$e->model?></td>
+                    <td><?=$e->status_name?></td>
+                    <td><?=$e->receive_date?></td>
+                    <td>
+                        <a href="<?=App::config('url')?>dashboard/continue/<?=$e->workorder_id?>">
+                            <i title="Continue work on work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-toolbox"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+            </tbody>
+            </table>
+    </div>
+</div>

@@ -8,6 +8,14 @@ class DashboardController extends AuthorizationController
     private $viewDirRep = 'private' . DIRECTORY_SEPARATOR . 
                         'repairman' . DIRECTORY_SEPARATOR;
 
+    private $workorder;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->workorder = new stdClass();
+    }
+
     public function index()
     {
         if($_SESSION['authorized']->employee_role==='Admin'){
@@ -24,8 +32,31 @@ class DashboardController extends AuthorizationController
                 <script src="' . App::config('url') . 'public/js/admindash.js"></script>'
             ]);
         }else{
-            $this->view->render($this->viewDirRep . 'dashboard');
+            $this->view->render($this->viewDirRep . 'dashboard',[
+                'eclaim' => Workorder::readNew(),
+                'econt' => Workorder::readClaimed()
+
+            ]);
 
         }
+    }
+
+    public function claim($workorder_id)
+    {
+        Workorder::claim($workorder_id);
+        $this->workorder = Workorder::readOne($workorder_id);
+        $this->view->render($this->viewDirRep . 'details',[
+            'entity'=>$this->workorder,
+            'message'=>''
+        ]);
+    }
+
+    public function continue($workorder_id)
+    {
+        $this->workorder = Workorder::readOne($workorder_id);
+        $this->view->render($this->viewDirRep . 'details',[
+            'entity'=>$this->workorder,
+            'message'=>''
+        ]);
     }
 }

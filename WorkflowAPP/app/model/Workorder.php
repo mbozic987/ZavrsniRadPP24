@@ -27,8 +27,8 @@ class Workorder
 
     public static function statusCount()
     {
-        $veza = DB::getInstance();
-        $izraz = $veza->prepare('
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
         
             select b.status_name as name, count(a.repair_status) as y
             from workorder a left join repair_status b
@@ -37,8 +37,79 @@ class Workorder
         
         
         '); 
-        $izraz->execute();
-        return $izraz->fetchAll();
+        $exp->execute();
+        return $exp->fetchAll();
+    }
+
+    public static function readNew()
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            select a.workorder_id, a.receive_date,
+            b.manufacturer, b.model,
+            c.firstname, c.lastname, c.company,
+            d.status_name
+            from workorder a
+            inner join device b on a.device = b.device_id
+            inner join client c on b.client = c.client_id
+            inner join repair_status d on a.repair_status = d.repair_status_id
+            where a.repair_status=1 and a.employee_repairman=1
+            group by
+            a.workorder_id, a.receive_date,
+            b.manufacturer, b.model,
+            c.firstname, c.lastname, c.company,
+            d.status_name
+            order by 2 asc
+            limit 12;
+        
+        ');
+        $exp->execute();
+        return $exp->fetchAll();
+    }
+
+    public static function readClaimed()
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            select a.workorder_id, a.receive_date,
+            b.manufacturer, b.model,
+            c.firstname, c.lastname, c.company,
+            d.status_name
+            from workorder a
+            inner join device b on a.device = b.device_id
+            inner join client c on b.client = c.client_id
+            inner join repair_status d on a.repair_status = d.repair_status_id
+            where a.repair_status=3 and a.employee_repairman=:repairman
+            group by
+            a.workorder_id, a.receive_date,
+            b.manufacturer, b.model,
+            c.firstname, c.lastname, c.company,
+            d.status_name
+            order by 2 asc
+            limit 12;
+        
+        ');
+        $exp->execute(['repairman'=>$_SESSION['authorized']->employee_id]);
+        return $exp->fetchAll();
+    }
+
+    public static function claim($workorder_id)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            update workorder set 
+            employee_repairman=:employee_repairman,
+            repair_status=2
+            where workorder_id=:workorder_id
+        
+        ');
+        $exp->execute([
+            'workorder_id'=>$workorder_id,
+            'employee_repairman'=>$_SESSION['authorized']->employee_id
+        ]);
     }
 
     public static function read($page, $cond)
@@ -139,9 +210,11 @@ class Workorder
             employee_frontdesk=:employee_frontdesk,
             device=:device,
             malfunction=:malfunction
+            where workorder_id=:workorder_id
         
         ');
         $exp->execute([
+            'workorder_id'=>$parameters['workorder_id'],
             'employee_frontdesk'=>$parameters['employee_frontdesk'],
             'device'=>$parameters['device'],
             'malfunction'=>$parameters['malfunction']
