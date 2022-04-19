@@ -85,7 +85,7 @@
                 Device ID: <?=$e->device_id?>
               </li>
               <li>
-                Receive date: <?=$e->receive_date?>
+                Receive date: <?php echo date('Y-m-d',strtotime($e->receive_date));?>
               </li>
               <li>
                 Manufacturer: <?=$e->manufacturer?>
@@ -118,7 +118,7 @@
                 Work done: <?=$e->work_done?>
               </li>
               <li>
-                Repair date: <?=$e->repair_date?>
+                Repair date: <?php echo date('Y-m-d',strtotime($e->repair_date));?>
               </li>
               <li>
                 Query ID: <?=$e->query_id?>
@@ -169,7 +169,3 @@
     </li>
   </ul>
 </nav>
-
-<pre>
-  <?php print_r($entity); ?>
-</pre>

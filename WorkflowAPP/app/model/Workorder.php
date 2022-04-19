@@ -81,7 +81,7 @@ class Workorder
             inner join device b on a.device = b.device_id
             inner join client c on b.client = c.client_id
             inner join repair_status d on a.repair_status = d.repair_status_id
-            where a.repair_status=3 and a.employee_repairman=:repairman
+            where a.repair_status=2 or a.repair_status=3 and a.employee_repairman=:repairman
             group by
             a.workorder_id, a.receive_date,
             b.manufacturer, b.model,
@@ -199,6 +199,26 @@ class Workorder
             'query_id'=>$parameters['query_id']
         ]);
 
+    }
+
+    public static function submit($parameters)
+    {
+        $conn = DB::getInstance();
+        $exp = $conn->prepare('
+        
+            update workorder set 
+            work_done=:work_done,
+            repair_status=:repair_status,
+            repair_date=:repair_date
+            where workorder_id=:workorder_id
+        
+        ');
+        $exp->execute([
+            'workorder_id'=>$parameters['workorder_id'],
+            'work_done'=>$parameters['work_done'],
+            'repair_status'=>$parameters['repair_status'],
+            'repair_date'=>$parameters['repair_date']
+        ]);
     }
 
     public static function update($parameters)

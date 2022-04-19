@@ -20,7 +20,7 @@
                     <td><?=$e->manufacturer?></td>
                     <td><?=$e->model?></td>
                     <td><?=$e->status_name?></td>
-                    <td><?=$e->receive_date?></td>
+                    <td><?php echo date('Y-m-d',strtotime($e->receive_date));?></td>
                     <td>
                         <a href="<?=App::config('url')?>dashboard/claim/<?=$e->workorder_id?>">
                             <i title="Claim work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-hand-paper"></i>
@@ -51,7 +51,7 @@
                     <td><?=$e->manufacturer?></td>
                     <td><?=$e->model?></td>
                     <td><?=$e->status_name?></td>
-                    <td><?=$e->receive_date?></td>
+                    <td><?php echo date('Y-m-d',strtotime($e->receive_date));?></td>
                     <td>
                         <a href="<?=App::config('url')?>dashboard/continue/<?=$e->workorder_id?>">
                             <i title="Continue work on work order No. <?=$e->workorder_id?>" class="fas fa-2x fa-toolbox"></i>

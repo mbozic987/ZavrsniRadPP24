@@ -59,4 +59,43 @@ class DashboardController extends AuthorizationController
             'message'=>''
         ]);
     }
+
+    public function submit()
+    {
+        $this->prepareData();
+
+        if($this->statusControll()
+        &&$this->dateControll()){
+                Workorder::submit($_POST);
+            }else{
+                $this->view->render($this->viewDirRep . 'details',[
+                    'entity'=>$this->workorder,
+                    'message'=>$this->message
+                ]);
+                return;
+            }
+        header('location:' . App::config('url') . 'dashboard/index');
+    }
+
+    private function prepareData()
+    {
+        $this->workorder=(object)$_POST;
+    }
+
+    private function statusControll()
+    {
+        if($this->workorder->repair_status==''){
+            $this->message='You must choose repair status!';
+            return false;
+        }
+        return true;
+    }
+
+    private function dateControll()
+    {
+        if($this->workorder->repair_status== 4 || 5){
+            $_POST['repair_date'] = date("Y-m-d  H:i:s",time());
+        }
+        return true;
+    }
 }

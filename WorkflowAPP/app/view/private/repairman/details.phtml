@@ -1,3 +1,84 @@
-<pre>
-    <?php print_r($entity);?>
-</pre>
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="large-3 medium-2 cell"></div>
+        <div class="large-6 medium-8 cell">
+            <h4 style="text-align:center"><u>Work order No. <?=$entity->workorder_id?></u></h4><br>
+            <div class="grid-x">
+                <div class="large-6 medium-6">
+                    <h4><u>Client</u></h4>
+                    <p><strong>Name: </strong><?=$entity->firstname?> <?=$entity->lastname?></p>
+                    <p><strong>Company: </strong><?=$entity->company?></p>
+                    <p><strong>Phone number: </strong><?=$entity->phonenum?></p>
+                </div>
+                <div class="large-6 medium-6">
+                    <h4><u>Device</u></h4>
+                    <p><strong>Manufacturer: </strong><?=$entity->manufacturer?></p>
+                    <p><strong>Model: </strong><?=$entity->model?></p>
+                    <p><strong>Serial number: </strong><?=$entity->serialnum?></p>
+                </div>
+            </div>
+            <hr>
+            <div class="grid-x">
+                <div class="large-6 medium-6">
+                    <h4><u>Recive date</u></h4>
+                    <p><strong><?php echo date('Y-m-d',strtotime($entity->receive_date));?></strong></p>
+                </div>
+                <div class="large-6 medium-6">
+                    <h4><u>Malfunction</u></h4>
+                    <p><strong><?=$entity->malfunction;?></strong></p>
+                </div>
+            </div>
+            <hr>
+            <form action="<?=App::config('url')?>dashboard/submit" method="post">
+                <fieldset>
+                    
+                    <div class="grid-x">
+                        <div style="padding-right:10px" class="large-8 medium-8">
+                            
+                            <label for="work_done"><h4><u>Work done</u></h4></label>
+                                <textarea rows="5" name="work_done" id="work_done" value="<?=$entity->work_done?>"></textarea>
+                        </div>
+                        <div style="padding-left:15px" class="large-4 medium-4">
+                            <h4><u>Status</u></h4>
+                            <input type="radio" name="repair_status" id="diagnostics" <?php if($entity->repair_status_id==2) echo 'checked="checked"'; ?> value="2">
+                            <label for="diagnostics">Diagnostics</label>
+                            <br/>
+                                <input type="radio" name="repair_status" id="awaiting_parts" <?php if($entity->repair_status_id==3) echo 'checked="checked"'; ?> value="3">
+                            <label for="awaiting_parts">Avaiting parts</label>
+                            <br/>
+                            <input type="radio" name="repair_status" id="repaird" <?php if($entity->repair_status_id==4) echo 'checked="checked"'; ?> value="4">
+                            <label for="repaird">Device repaird</label>
+                            <br/>
+                                <input type="radio" name="repair_status" id="notrec" <?php if($entity->repair_status_id==5) echo 'checked="checked"'; ?> value="5">
+                            <label for="notrec">Repair is not recommended</label>
+                                
+                                <input type="hidden" name="workorder_id" value="<?=$entity->workorder_id?>">
+                                <input type="hidden" name="firstname" value="<?=$entity->firstname?>">
+                                <input type="hidden" name="lastname" value="<?=$entity->lastname?>">
+                                <input type="hidden" name="company" value="<?=$entity->company?>">
+                                <input type="hidden" name="phonenum" value="<?=$entity->phonenum?>">
+                                <input type="hidden" name="manufacturer" value="<?=$entity->manufacturer?>">
+                                <input type="hidden" name="model" value="<?=$entity->model?>">
+                                <input type="hidden" name="serialnum" value="<?=$entity->serialnum?>">
+                                <input type="hidden" name="malfunction" value="<?=$entity->malfunction?>">
+                                <input type="hidden" name="receive_date" value="<?=$entity->receive_date?>">
+                                <input type="hidden" name="repair_date" value="<?=$entity->repair_date?>">
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="grid-x grid-padding-x">
+                        <div class="large-4 medium-4 small-4">
+                            <a class="alert button expanded" href="<?=App::config('url')?>dashboard/index"><<<   Abort</a>
+                        </div>
+                        <div class="large-8 medium-8 small-8">
+                            <input type="submit" class="button expanded" value="Finish work order!!!">
+                        </div>
+                    </div>
+                    <hr/>
+                    <p style="color: red"><?=$message?></p>
+                </fieldset>
+            </form>
+        </div>
+        <div class="large-3 medium-2 cell"></div>
+    </div>
+</div>
