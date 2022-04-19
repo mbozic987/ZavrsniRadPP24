@@ -189,18 +189,17 @@ class ClientController extends AdminController
     }
 
     public function test($function){
+        require_once 'vendor/autoload.php';
+        $faker = Faker\Factory::create('hr_HR');
         switch ($function) {
-            case 'add200':
+            case 'add':
                 for($i=0;$i<200;$i++){
                     Client::create([
-                        'firstname'=>'Pero',
-                        'lastname'=>'Perić',
-                        'company'=>'Peronato',
-                        'phonenum'=>'09898080',
-                        'email'=>'pero@pero.com',
-                        'manufacturer'=>'Kercher',
-                        'model'=>'Peraja 3000',
-                        'serialnum'=>'9876543210'
+                        'firstname'=>$faker->firstname(),
+                        'lastname'=>$faker->lastname(),
+                        'company'=>$faker->company(),
+                        'phonenum'=>$faker->phoneNumber(),
+                        'email'=>$faker->email()
                     ]);
                 }
                 break;

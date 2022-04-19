@@ -201,22 +201,4 @@ class DeviceController extends AdminController
         }
         return true;
     }
-
-    public function test($function){
-        switch ($function) {
-            case 'add1000':
-                for($i=0;$i<1000;$i++){
-                    Device::create([
-                        'client'=>rand(1,200),
-                        'manufacturer'=>'Kercher',
-                        'model'=>'Peraja 3000',
-                        'serialnum'=>'9876543210'
-                    ]);
-                }
-                break;
-            default:
-                # code...
-                break;
-        }
-    }
 }
