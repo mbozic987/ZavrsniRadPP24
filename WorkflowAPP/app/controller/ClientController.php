@@ -187,4 +187,26 @@ class ClientController extends AdminController
         }
         return true;
     }
+
+    public function test($function){
+        switch ($function) {
+            case 'add200':
+                for($i=0;$i<200;$i++){
+                    Client::create([
+                        'firstname'=>'Pero',
+                        'lastname'=>'Perić',
+                        'company'=>'Peronato',
+                        'phonenum'=>'09898080',
+                        'email'=>'pero@pero.com',
+                        'manufacturer'=>'Kercher',
+                        'model'=>'Peraja 3000',
+                        'serialnum'=>'9876543210'
+                    ]);
+                }
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
 }
