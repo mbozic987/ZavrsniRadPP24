@@ -16,10 +16,10 @@
                 <li class="has-submenu">
                     <a href="#">Data Sheets</a>
                     <ul class="submenu menu vertical" data-submenu>
-                    <li><a href="<?=App::config('url')?>workorder/index">Workorders</a></li>
+                    <li><a href="<?=App::config('url')?><?php echo (App::admin()) ? 'workorder/index' : 'dashboard/index'; ?>">Workorders</a></li>
                     <?php if(App::admin()): ?>
-                    <li><a href="<?=App::config('url')?>client/index">Clients</a></li>
                     <li><a href="<?=App::config('url')?>device/index">Devices</a></li>
+                    <li><a href="<?=App::config('url')?>client/index">Clients</a></li>
                     <li><a href="<?=App::config('url')?>employee/index">Employees</a></li>
                     <?php endif; ?>
                     </ul>
